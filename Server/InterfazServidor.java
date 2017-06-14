@@ -200,7 +200,8 @@ public class InterfazServidor extends javax.swing.JDialog {
         listaTicketsPendientes.getMaxSelectionIndex();
         listaTicketsPendientes.isSelectedIndex(WIDTH);
         
-        String ticketSeleccionado = listaTicketsPendientes.getSelectedValuesList().get(listaTicketsPendientes.getMaxSelectionIndex());
+        //String ticketSeleccionado = listaTicketsPendientes.getSelectedValuesList().get(listaTicketsPendientes.getMaxSelectionIndex());
+        String ticketSeleccionado = listaTicketsPendientes.getSelectedValue();
         infoTicketsPendientes.setText(ticketSeleccionado);
         
         //Object value;
