@@ -612,15 +612,14 @@ public class Server {
         TicketCategory categ = TicketCategory.LOW;
         for (int i = 0;i < this.ticketsList.size();i++) {
             ticket = this.ticketsList.get(i);
-            ticket.setTicketCategory(_category);
-            categ = ticket.getTicketCategory();
-            this.addTicketToCategoryList(ticket, categ);
-            
+            if (ticket.getTicketID() == _ticketID) {
+                ticket.setTicketCategory(_category);
+                categ = ticket.getTicketCategory();
+                this.addTicketToCategoryList(ticket, categ);
+            }
         }
-        
-        
-    
     }
+    
     
 
     
