@@ -81,4 +81,45 @@ public class Server {
             //      System.out.println("Yap");
         }
     }
+
+
+
+    /**
+     * Method returns the List of Tickets in a period of time
+     * 
+     * @param _date1i Date 1
+     * @param _date2f Date 2
+     * @return 
+     */
+    public Vector<Ticket> getTicketsInDates(Date _date1i, Date _date2f) {
+        
+        Vector<Ticket> newListTickets =  new Vector<>();
+        Ticket ticket;
+        for (int i = 0; i < this.ticketsList.size(); i++) {
+            ticket = this.ticketsList.get(i);
+            if (_date1i.compareTo(ticket.getDateReceived()) >= 0 && 
+                    _date2f.compareTo(ticket.getDateReceived()) <= 0) {
+                newListTickets.add(ticket);
+            }    
+        }       
+        return newListTickets;
+    }
+    
+    public void ticketDetails(int _ticketID, String _complain, int _secondsSpent, 
+            String _resolvedComment, Date _dateResolved) {
+        
+        Ticket ticket;
+        for (int i = 0; i < this.ticketsList.size(); i++) {
+            ticket = this.ticketsList.get(i);
+            if (ticket.getTicketID()== _ticketID) {
+                ticket.setComentary(_resolvedComment);
+                ticket.setTimeSolved(_secondsSpent);
+                ticket.setDateResolved(_dateResolved);
+                
+                
+            }
+        }    
+        
+      
+    
 }

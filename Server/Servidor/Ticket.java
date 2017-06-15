@@ -16,10 +16,20 @@ import java.util.Date;
 public class Ticket implements AttentionMetric {
     private Date dateReceived;
     private int clientID;
+    private int ticketID;
     private TicketCategory category;
     private TicketStatus status;
     private String subjet;
     private static int totalCreated;
+    
+    //After being resolved Data
+    
+    private Date dateResolved;
+    private int timeBeingProcessed;
+    private String comment;
+    private String complain;
+    
+    
     
     
     
@@ -29,10 +39,11 @@ public class Ticket implements AttentionMetric {
      * @param _clientID
      * @param _subjet 
      */
-    public Ticket (int _clientID, String _subjet) {
+    public Ticket (int _clientID, String _subjet, int _ticketID) {
         
         
         this.clientID = _clientID;
+        this.ticketID = _ticketID;
         this.subjet = _subjet;
         TicketStatus _status = TicketStatus.PENDING;
         this.status = _status;
@@ -42,6 +53,8 @@ public class Ticket implements AttentionMetric {
     int getClientID() {
         return this.clientID;
     }
+    
+    int getTicketID() { return this.ticketID;}
     
     
     public void setDateReceived() {
@@ -143,7 +156,34 @@ public class Ticket implements AttentionMetric {
     }
     
     
+   public void setDateResolved(Date _date) {
+   
+       this.dateResolved = _date;
+   }
+ 
+   public Date getDateResolved() {return this.dateResolved;}
+   
+   public void setTimeSolved( int _seconds) {
+       this.timeBeingProcessed = _seconds;
+   }
     
+   public void setComentary(String _comment) {
+       this.comment = _comment;
+   }
+   
+   public String getTicketComment() {
+       return this.comment;
+   }
+   
+   public String setComplain(String _complain) {
+       this.complain = _complain;
+               
+   }
+   
+   
+   
+   
+   
     
 }
     
