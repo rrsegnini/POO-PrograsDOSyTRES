@@ -234,6 +234,7 @@ public class Server {
             employee = this.employeesList.get(i);
             if (employee.getID() == _employeeID) {
                 employee.addTicket(_ticket);
+                employee.addTicketReceived();
             }
             
         } 
