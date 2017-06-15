@@ -70,6 +70,7 @@ public class Server {
     //Fin Sockets
     
     private Vector<Ticket> ticketsList =  new Vector<>();
+    private Vector<Employee> employeesList = new Vector<Employee>();
     private Vector<Ticket> RedTickestList =  new Vector<Ticket>();
     private Vector<Ticket> GreenTicketsList =  new Vector<Ticket>();
     private Vector<Ticket> YellowTicketsList =  new Vector<Ticket>();
@@ -392,6 +393,7 @@ void addTicket(int _clientID, String _subjet, int _ticketID) {
     
     }
 
+
     public void addTicketToCategoryList(Ticket _ticket, TicketCategory _categ) {
         
         if (_categ == TicketCategory.LOW) {
@@ -420,7 +422,7 @@ void addTicket(int _clientID, String _subjet, int _ticketID) {
     
     }
     
-    
+
     
 public static void main(String args[]) {
         /* Set the Nimbus look and feel */
