@@ -84,6 +84,11 @@ public class Server {
 
 
 
+void addTicket(int _clientID, String _subjet, int _ticketID) {
+        Ticket newTicket = new Ticket( _clientID,  _subjet, _ticketID);
+        this.ticketsList.add(newTicket);
+        
+    }
     /**
      * Method returns the List of Tickets in a period of time
      * 
@@ -106,7 +111,7 @@ public class Server {
     }
     
 
-    
+
     public void ticketDetails(int _ticketID, String _complain, int _secondsSpent, 
             String _resolvedComment, Date _dateResolved) {
         
