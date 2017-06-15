@@ -590,6 +590,9 @@ public class Interfaz extends javax.swing.JFrame {
         //</editor-fold>
         
         /* Create and display the form */
+        Client client = new Client();
+        client.initClient();
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Interfaz().setVisible(true);
