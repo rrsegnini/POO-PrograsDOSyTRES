@@ -391,6 +391,36 @@ void addTicket(int _clientID, String _subjet, int _ticketID) {
         return msg;
     
     }
+
+    public void addTicketToCategoryList(Ticket _ticket, TicketCategory _categ) {
+        
+        if (_categ == TicketCategory.LOW) {
+            this.GreenTicketsList.add(_ticket);
+        } else if (_categ == TicketCategory.MEDIUM) {
+            this.YellowTicketsList.add(_ticket);
+        } else if (_categ == TicketCategory.URGENT) {
+            this.RedTickestList.add(_ticket);
+        }
+        
+    
+    }
+    
+    public void setTicketCategory(int _ticketID, String _category) {
+        Ticket ticket;
+        TicketCategory categ = TicketCategory.LOW;
+        for (int i = 0;i < this.ticketsList.size();i++) {
+            ticket = this.ticketsList.get(i);
+            ticket.setTicketCategory(_category);
+            categ = ticket.getTicketCategory();
+            this.addTicketToCategoryList(ticket, categ);
+            
+        }
+        
+        
+    
+    }
+    
+    
     
 public static void main(String args[]) {
         /* Set the Nimbus look and feel */
