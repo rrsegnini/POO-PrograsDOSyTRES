@@ -105,21 +105,54 @@ public class Server {
         return newListTickets;
     }
     
+
+    
     public void ticketDetails(int _ticketID, String _complain, int _secondsSpent, 
             String _resolvedComment, Date _dateResolved) {
+        
+        Ticket ticket;
+        int timeSpent = 0;
+        for (int i = 0; i < this.ticketsList.size(); i++) {
+            ticket = this.ticketsList.get(i);
+            if (ticket.getTicketID()== _ticketID) {
+                ticket.setComentary(_resolvedComment);
+                timeSpent = ticket.getAttentionMetric(ticket.getTicketCategory(), timeSpent);
+                ticket.setTimeSolved(_secondsSpent);
+                ticket.setDateResolved(_dateResolved);
+                ticket.setComplain(_complain);
+                
+            }
+            
+        }    
+        
+            
+    }
+    
+    public void updateTicket(int _ticketID, String _complain, int _secondsSpent, 
+            String _resolvedComment, Date _dateResolved) {
+    
+        this.ticketDetails(_ticketID, _complain, _secondsSpent, _resolvedComment,
+                _dateResolved);
+        
         
         Ticket ticket;
         for (int i = 0; i < this.ticketsList.size(); i++) {
             ticket = this.ticketsList.get(i);
             if (ticket.getTicketID()== _ticketID) {
-                ticket.setComentary(_resolvedComment);
-                ticket.setTimeSolved(_secondsSpent);
-                ticket.setDateResolved(_dateResolved);
-                
-                
+                ticket.setTicketStatus("Atendido");
             }
-        }    
+            
+        }  
+        
+        
+        
+        
+        
+    }
+    
+    //public void updateTicket();
+   
         
       
-    
+
 }
