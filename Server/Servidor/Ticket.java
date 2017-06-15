@@ -136,7 +136,11 @@ public class Ticket implements AttentionMetric {
         this.status = tStatus; 
     }
     
-    public String getTicketStatus() {
+    public TicketStatus getTicketStatus() {
+        return this.status;
+    }
+    
+    public String getTicketStatusStr() {
         TicketStatus _status = TicketStatus.PENDING;
         String stat =  " ";
         
@@ -202,7 +206,15 @@ public class Ticket implements AttentionMetric {
    } 
    
    public int getEmployeeID() {return this.employeeID;}
-   
+    
+   /**
+    * Get Time
+    * 
+    * @return Returns the time in seconds spent in this ticket
+    */
+   public int getTime() {
+       return this.timeBeingProcessed;
+   }
     
 }
     

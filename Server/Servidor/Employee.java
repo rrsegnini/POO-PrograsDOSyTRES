@@ -17,6 +17,8 @@ public class Employee {
     private String password;
     private String fullName;
     private  EmployeeStatus status;
+    //NUEVO
+    private int ticketsReceived;
     
     
     private Vector<Ticket> ticketList =  new Vector<Ticket>();
@@ -36,12 +38,12 @@ public class Employee {
     public String getEmail() {return this.email;}
     public String getFullName() {return this.fullName;}
     
-    public void connectClient() {
+    public void connect() {
         EmployeeStatus connect = EmployeeStatus.CONNECTED;
         this.status = connect;
     }
     
-    public void disconnectClient() {
+    public void disconnect() {
         EmployeeStatus disconnect = EmployeeStatus.DISCONNECTED;
         this.status = disconnect;
     }
@@ -53,5 +55,29 @@ public class Employee {
     public Vector<Ticket> getTicketsResolved() {return this.ticketList;}
     
     public int getID() {return this.employeeID;}
+    
+    public void addTicketReceived() {
+        this.ticketsReceived++;
+    }
+    
+    /**
+     * Gets Average time by this employee
+     * 
+     * @return returns the average time in Seconds a employee spent solving
+     *         tickets
+     */
+    public int getAverageTime() {
+        int count = 0;
+        int totalSecs = 0;
+        Ticket ticket;
+        for (int i = 0; i < this.ticketList.size(); i++) {
+            ticket = this.ticketList.get(i);
+            totalSecs += ticket.getTime();
+            count ++;
+        }
+        
+        return totalSecs/count;
+        
+    }
     
 }
