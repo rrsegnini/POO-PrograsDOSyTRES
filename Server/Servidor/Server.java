@@ -114,19 +114,21 @@ public class Server {
             while (true){
                 XSSFRow row = worksheet.getRow(cont);
 
-                XSSFCell cellB1 = row.getCell((short) 1);
-                double b1Val = cellB1.getNumericCellValue();
+                if(row != null) {
+                    XSSFCell cellB1 = row.getCell((short) 1);
+                    double b1Val = cellB1.getNumericCellValue();
 
-                XSSFCell cellC1 = row.getCell((short) 2);
-                String c1Val = cellC1.getStringCellValue();
+                    XSSFCell cellC1 = row.getCell((short) 2);
+                    String c1Val = cellC1.getStringCellValue();
 
-                int b1 = (int) b1Val;
+                    int b1 = (int) b1Val;
 
-                System.out.println("B1: " + b1Val);
-                System.out.println("C1: " + c1Val);
-                cont++;
+                    System.out.println("B1: " + b1Val);
+                    System.out.println("C1: " + c1Val);
+                    cont++;
 
-                addTicket(b1, c1Val);
+                    addTicket(b1, c1Val);
+                }
 
             }
 
@@ -652,6 +654,7 @@ public static void main(String args[]) {
             public void run() {
                 InterfazServidor dialog = new InterfazServidor(new javax.swing.JFrame(), true);
                 Server server = Server.getInstance();
+                server.readExcel();
                 
                 //SocketThread socket = new SocketThread(dialog, server);
                 //server.initServer(socket);
