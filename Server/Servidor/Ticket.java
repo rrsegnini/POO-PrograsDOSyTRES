@@ -49,6 +49,7 @@ public class Ticket implements AttentionMetric {
         this.status = _status;
         totalCreated += 1;
         this.ticketID = totalCreated;
+        dateReceived = new Date();
     }
     
     int getClientID() {

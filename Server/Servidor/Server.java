@@ -652,7 +652,7 @@ public static void main(String args[]) {
             public void run() {
                 InterfazServidor dialog = new InterfazServidor(new javax.swing.JFrame(), true);
                 Server server = Server.getInstance();
-                
+                server.readExcel();
                 //SocketThread socket = new SocketThread(dialog, server);
                 //server.initServer(socket);
                 System.out.println("AAAAAAAAAAAAH");
