@@ -13,7 +13,8 @@ import javax.swing.JOptionPane;
  * @author CASA
  */
 public class Interfaz extends javax.swing.JFrame {
-
+    Client client = new Client();
+    //client.initClient();
     /**
      * Creates new form Interfaz
      */
@@ -447,6 +448,9 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
         frameColores.setVisible(true);
        setVisible(false);
+       client.initClient();
+       client.send();
+       
        frameColores.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosing(java.awt.event.WindowEvent windowEvent) {
@@ -590,8 +594,8 @@ public class Interfaz extends javax.swing.JFrame {
         //</editor-fold>
         
         /* Create and display the form */
-        Client client = new Client();
-        client.initClient();
+        
+        
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
