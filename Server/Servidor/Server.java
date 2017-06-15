@@ -239,6 +239,110 @@ public class Server {
             
         } 
     }
+
+
+        public void connectEmployee(int _employeeID) {
+        Employee employee;
+        for (int i = 0; i < this.employeesList.size(); i++) {
+            employee = this.employeesList.get(i);
+            if (employee.getID() == _employeeID) {
+                employee.connect();
+            }
+        }
+    }
+    
+    public void disconnectEmployee(int _employeeID) {
+        Employee employee;
+        for (int i = 0; i < this.employeesList.size(); i++) {
+            employee = this.employeesList.get(i);
+            if (employee.getID() == _employeeID) {
+                employee.disconnect();
+            }
+        }
+    }
+    
+    public boolean reserveTicket(int _ticketID) {
+        Ticket ticket;
+        TicketStatus status = TicketStatus.PENDING;
+        for (int i = 0; i < this.ticketsList.size(); i++) {
+            ticket = this.ticketsList.get(i);
+            if (ticket.getTicketID()== _ticketID) {
+                if (ticket.getTicketStatus() == status) {
+                    ticket.setTicketStatus("En Atencion");
+                    return true;
+                } else {
+                    return false;
+                
+                }
+            }
+        }
+        return false;
+    }
+    
+    public void releaseTicket(int _ticketID) {
+        Ticket ticket;
+        for (int i = 0; i < this.ticketsList.size(); i++) {
+            ticket = this.ticketsList.get(i);
+            if (ticket.getTicketID()== _ticketID) {
+                ticket.setTicketStatus("Pendiente");
+            }
+        }
+    }
+    
+    /**
+     * Average time spent by an employee
+     * 
+     * @param _employeeID receives an Employee ID
+     * @return returns the average time spent by that Employee solving tickets
+     */
+    public int averageTimeByEmployee(int _employeeID) {
+        Employee employee;
+        int timeSpent = 0;
+        
+        for (int i = 0; i < this.employeesList.size(); i++) {
+            employee = this.employeesList.get(i);
+            if (employee.getID() == _employeeID) {
+                timeSpent = employee.getAverageTime();
+                break;
+            }
+        }
+        return timeSpent;
+    }
+    
+    /**
+     * Average time spent resolving tickets
+     * 
+     * @return returns an int (seconds) of the average time spent processing
+     * tickets
+     */
+    public int averateTimeTickets() {
+        int count = 0;
+        int totalSecs = 0;
+        Ticket ticket;
+        TicketStatus resolved = TicketStatus.RESOLVED;
+        for (int i = 0; i < this.ticketsList.size(); i++) {
+            ticket = this.ticketsList.get(i);
+            if (ticket.getTicketStatus() == resolved) {
+                totalSecs += ticket.getTime();
+                count++;
+            }
+        }
+        
+        return totalSecs/count;
+    }
+    
+    public Vector<Ticket> getTicketsSolvedByEmployee(int _employeeID) {
+        Employee employee;
+        Vector<Ticket> nullVector = new Vector<Ticket>();
+        for (int i = 0; i < this.employeesList.size(); i++) {
+            employee = this.employeesList.get(i);
+            if (employee.getID() == _employeeID) {
+                return employee.getTicketsResolved();
+            }
+        }
+        
+        return nullVector;
+    }
     
 public static void main(String args[]) {
         /* Set the Nimbus look and feel */
