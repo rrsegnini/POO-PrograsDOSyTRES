@@ -28,6 +28,7 @@ public class Ticket implements AttentionMetric {
     private int timeBeingProcessed;
     private String comment;
     private String complain;
+    private int employeeID;
     
     
     
@@ -93,7 +94,7 @@ public class Ticket implements AttentionMetric {
         
     }
     
-    public String getTicketCategory() {
+    public String getTicketCategoryStr() {
         String categ = " ";
         
         if (this.category == TicketCategory.URGENT) {
@@ -104,6 +105,20 @@ public class Ticket implements AttentionMetric {
             categ = "Leve";
         } 
         return categ;
+        
+    }
+    
+    public TicketCategory getTicketCategory() {
+        TicketCategory category = TicketCategory.LOW;
+        
+        if (this.category == TicketCategory.URGENT) {
+            category = TicketCategory.URGENT;
+        } else if (this.category == TicketCategory.MEDIUM) {
+            category = TicketCategory.MEDIUM;
+        } else if (this.category == TicketCategory.LOW) {
+            category = TicketCategory.LOW;
+        } 
+        return category;
         
     }
     
@@ -175,14 +190,18 @@ public class Ticket implements AttentionMetric {
        return this.comment;
    }
    
-   public String setComplain(String _complain) {
+   public void setComplain(String _complain) {
        this.complain = _complain;
-               
+       
    }
    
+   public String getComplain() {return this.complain;}
    
+   public void setEmployeeID(int _employeeID) {
+       this.employeeID = _employeeID;
+   } 
    
-   
+   public int getEmployeeID() {return this.employeeID;}
    
     
 }

@@ -12,7 +12,7 @@ import java.util.Vector;
  * @author danielalvarado
  */
 public class Employee {
-    
+    int employeeID;
     private String email;
     private String password;
     private String fullName;
@@ -21,8 +21,9 @@ public class Employee {
     
     private Vector<Ticket> ticketList =  new Vector<Ticket>();
     
-    public Employee (String _email, String _password, String _fullName) {
+    public Employee (int _employeeID,String _email, String _password, String _fullName) {
         
+        this.employeeID = _employeeID;
         this.email = _email;
         this.fullName = _fullName;
         this.password = _password;
@@ -49,7 +50,8 @@ public class Employee {
         this.ticketList.add(_newTicket);
     }
     
+    public Vector<Ticket> getTicketsResolved() {return this.ticketList;}
     
-    
+    public int getID() {return this.employeeID;}
     
 }

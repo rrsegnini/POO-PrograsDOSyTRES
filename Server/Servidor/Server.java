@@ -83,12 +83,12 @@ public class Server {
     }
 
 
-
-void addTicket(int _clientID, String _subjet, int _ticketID) {
+    void addTicket(int _clientID, String _subjet, int _ticketID) {
         Ticket newTicket = new Ticket( _clientID,  _subjet, _ticketID);
         this.ticketsList.add(newTicket);
         
     }
+    
     /**
      * Method returns the List of Tickets in a period of time
      * 
@@ -110,8 +110,6 @@ void addTicket(int _clientID, String _subjet, int _ticketID) {
         return newListTickets;
     }
     
-
-
     public void ticketDetails(int _ticketID, String _complain, int _secondsSpent, 
             String _resolvedComment, Date _dateResolved) {
         
@@ -133,7 +131,7 @@ void addTicket(int _clientID, String _subjet, int _ticketID) {
             
     }
     
-    public void updateTicket(int _ticketID, String _complain, int _secondsSpent, 
+    public void updateTicket(int _employeeiD,int _ticketID, String _complain, int _secondsSpent, 
             String _resolvedComment, Date _dateResolved) {
     
         this.ticketDetails(_ticketID, _complain, _secondsSpent, _resolvedComment,
@@ -145,19 +143,52 @@ void addTicket(int _clientID, String _subjet, int _ticketID) {
             ticket = this.ticketsList.get(i);
             if (ticket.getTicketID()== _ticketID) {
                 ticket.setTicketStatus("Atendido");
+                ticket.setEmployeeID(_employeeiD);
+                this.addTicket2Employee(_employeeiD, ticket);
             }
-            
         }  
-        
-        
-        
-        
-        
     }
     
-    //public void updateTicket();
-   
+    public Vector<Ticket> getREDticketList() {
+        return this.RedTickestList;
+    
+    }
+    
+    public Vector<Ticket> getYELLOWticketList() {
+        return this.YellowTicketsList;
+    
+    }
+    
+    public Vector<Ticket> getGREENticketList() {
+        return this.GreenTicketsList;
+    }
+    
+    public Vector<Ticket> getAllTickets() {
+        return this.ticketsList;
+    
+    }
+    
+    public void addEmployee(int _employeeID,String _email, String _password, String _fullName) {
+        Employee newEmployee = new Employee(_employeeID, _email,  _password,  _fullName);
+        this.employeesList.add(newEmployee);
+    }
+    
+    public Vector<Employee> getEmployeeList() {return this.employeesList;}
+    
+    public void addTicket2Employee(int _employeeID,Ticket _ticket) {
+        Employee employee;
         
-      
+        for (int i = 0; i < this.employeesList.size(); i++) {
+            employee = this.employeesList.get(i);
+            if (employee.getID() == _employeeID) {
+                employee.addTicket(_ticket);
+            }
+            
+        } 
+    }
+    
+    
+    
+
 
 }
