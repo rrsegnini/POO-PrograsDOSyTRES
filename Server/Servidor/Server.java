@@ -133,9 +133,7 @@ public class Server {
             //      System.out.println("Yap");
         }
     }
-
-
-    void addTicket(int _clientID, String _subjet, int _ticketID) {
+void addTicket(int _clientID, String _subjet, int _ticketID) {
         Ticket newTicket = new Ticket( _clientID,  _subjet, _ticketID);
         this.ticketsList.add(newTicket);
         
@@ -234,14 +232,20 @@ public class Server {
             employee = this.employeesList.get(i);
             if (employee.getID() == _employeeID) {
                 employee.addTicket(_ticket);
-                employee.addTicketReceived();
             }
             
         } 
     }
-
-
-        public void connectEmployee(int _employeeID) {
+    
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    //////////////////////////////////////////////////
+    
+    public void connectEmployee(int _employeeID) {
         Employee employee;
         for (int i = 0; i < this.employeesList.size(); i++) {
             employee = this.employeesList.get(i);
@@ -261,7 +265,7 @@ public class Server {
         }
     }
     
-    public boolean reserveTicket(int _ticketID) {
+    public boolean reserveTicket(int _ticketID, int _employeeID) {
         Ticket ticket;
         TicketStatus status = TicketStatus.PENDING;
         for (int i = 0; i < this.ticketsList.size(); i++) {
@@ -269,6 +273,8 @@ public class Server {
             if (ticket.getTicketID()== _ticketID) {
                 if (ticket.getTicketStatus() == status) {
                     ticket.setTicketStatus("En Atencion");
+                    Employee employee = this.getEmployee(_employeeID);
+                    employee.addTicketReceived(ticket);
                     return true;
                 } else {
                     return false;
@@ -277,6 +283,18 @@ public class Server {
             }
         }
         return false;
+    }
+    
+    public Employee getEmployee(int _employeeID) {
+        Employee employee = new Employee();
+        
+        for (int i = 0;i < this.employeesList.size();i ++) {
+            employee = this.employeesList.get(i);
+            if (_employeeID == employee.getID() ) {
+                break;
+            }
+        }
+        return employee;
     }
     
     public void releaseTicket(int _ticketID) {
@@ -342,6 +360,36 @@ public class Server {
         }
         
         return nullVector;
+    }
+    
+    public String getEmployeeReport(String _email, String _password, Date _date) {
+        Employee employee;
+        String msg = "";
+        for (int i = 0; i < this.employeesList.size(); i++) {
+            employee = this.employeesList.get(i);
+            if (employee.successfulLogin(_email, _password)) {
+                Vector<Ticket> ticketsListInDateSolved = new Vector<Ticket>();
+                Vector<Ticket> ticketsListInDateReceived = new Vector<Ticket>();
+                ticketsListInDateSolved = employee.getTicketsInDateSolved(_date);
+                ticketsListInDateReceived = employee.getTicketsInDateReceived(_date);
+                
+                int ticketsSolved = ticketsListInDateSolved.size();
+                int ticketsReceived = ticketsListInDateReceived.size();
+                int average = (ticketsSolved/ticketsReceived) *100;
+                
+                String ticketsSolv = Integer.toString(ticketsSolved);
+                String ticketsRec = Integer.toString(ticketsReceived);
+                String avg = Integer.toString(average);
+                
+                msg += "La cantidad de tickets resueltos es: " + ticketsSolv +
+                        ", la cantidad de tickets recibidos es: " + ticketsRec +
+                        ". El promedio de de resolucion es: " + avg;
+                return msg;
+            }
+        }
+        msg = "Usuario y/o contrasenha errone@";
+        return msg;
+    
     }
     
 public static void main(String args[]) {
