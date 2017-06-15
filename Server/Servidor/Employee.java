@@ -5,6 +5,8 @@
  */
 package Servidor;
 
+import java.util.Vector;
+
 /**
  *
  * @author danielalvarado
@@ -15,6 +17,9 @@ public class Employee {
     private String password;
     private String fullName;
     private  EmployeeStatus status;
+    
+    
+    private Vector<Ticket> ticketList =  new Vector<Ticket>();
     
     public Employee (String _email, String _password, String _fullName) {
         
@@ -40,4 +45,11 @@ public class Employee {
         this.status = disconnect;
     }
 
+    public void addTicket(Ticket _newTicket) {
+        this.ticketList.add(_newTicket);
+    }
+    
+    
+    
+    
 }
