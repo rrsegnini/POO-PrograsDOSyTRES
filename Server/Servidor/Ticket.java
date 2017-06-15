@@ -13,13 +13,14 @@ import java.util.Date;
  *
  * @author danielalvarado
  */
-public class Ticket {
+public class Ticket implements AttentionMetric {
     private Date dateReceived;
     private int clientID;
     private TicketCategory category;
     private TicketStatus status;
     private String subjet;
     private static int totalCreated;
+    
     
     
     /**
@@ -124,6 +125,21 @@ public class Ticket {
     
     public String getSubject() {
         return this.subjet;
+    }
+    
+    @Override
+    public int getAttentionMetric(TicketCategory _category, int _timeSpent) {
+        
+        int realTimeSpent = 0;
+        
+        if (this.category == TicketCategory.URGENT) {
+            realTimeSpent = _timeSpent - 10;
+        } else if (this.category == TicketCategory.MEDIUM) {
+            realTimeSpent = _timeSpent * 10 - 12;
+        } else if (this.category == TicketCategory.LOW) {
+            realTimeSpent = _timeSpent * 3 - 15;
+        } 
+        return realTimeSpent;
     }
     
     

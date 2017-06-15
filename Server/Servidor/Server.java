@@ -17,10 +17,26 @@ import java.util.Vector;
  */
 public class Server {
 
-    private Vector<Ticket> listaTickets =  new Vector<>();
-    private Vector<Ticket> listaRojos =  new Vector<>();
-    private Vector<Ticket> listaAmarillos =  new Vector<>();
-    private Vector<Ticket> listaVerdas =  new Vector<>();
+    private Vector<Ticket> ticketsList =  new Vector<>();
+    private Vector<Ticket> RedTickestList =  new Vector<Ticket>();
+    private Vector<Ticket> GreenTicketsList =  new Vector<Ticket>();
+    private Vector<Ticket> YellowTicketsList =  new Vector<Ticket>();
+    
+    private static Server INSTANCE = null;
+    
+    private Server() {}
+    
+    private synchronized static void createInstance() {
+        if (INSTANCE == null)
+            INSTANCE = new Server();
+    }
+    
+    public static Server getInstance() {
+        createInstance();
+        return INSTANCE;
+    }
+
+
 
     public void readExcel() {
         try {
