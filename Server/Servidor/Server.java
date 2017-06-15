@@ -184,6 +184,10 @@ public class Server {
 
                     cont++;
                 } else {
+
+                    XSSFCell cellA1 = row.getCell((short) 1);
+                    cellA1.setCellValue(_ticket.getDateReceivedString() + " - " + _ticket.getTimeReceived());
+
                     XSSFCell cellB1 = row.getCell((short) 1);
                     cellB1.setCellValue(_ticket.getClientID());
 
@@ -233,6 +237,10 @@ public class Server {
                     cont++;
 
                 } else {
+
+                    XSSFCell cellA1 = row.getCell((short) 1);
+                    cellA1.setCellValue(_ticket.getDateReceivedString() + " - " + _ticket.getTimeReceived());
+
                     XSSFCell cellB1 = row.getCell((short) 1);
                     cellB1.setCellValue(_ticket.getClientID());
 
@@ -283,6 +291,9 @@ public class Server {
 
                 } else {
 
+                    XSSFCell cellA1 = row.getCell((short) 1);
+                    cellA1.setCellValue(_ticket.getDateReceivedString() + " - " + _ticket.getTimeReceived());
+
                     XSSFCell cellB1 = row.getCell((short) 1);
                     cellB1.setCellValue(_ticket.getClientID());
 
@@ -297,6 +308,9 @@ public class Server {
             for(int index3 = 0; ticketsList.get(index3)!=null; index3++){
                 Ticket _ticket = ticketsList.get(index3);
                 XSSFRow row = worksheet.getRow(cont);
+
+                XSSFCell cellA1 = row.getCell((short) 1);
+                cellA1.setCellValue(_ticket.getDateReceivedString() + " - " + _ticket.getTimeReceived());
 
                 XSSFCell cellB1 = row.getCell((short) 1);
                 cellB1.setCellValue(_ticket.getClientID());
