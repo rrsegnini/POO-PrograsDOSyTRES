@@ -70,10 +70,12 @@ public class Server {
     //Fin Sockets
     
     private Vector<Ticket> ticketsList =  new Vector<>();
-    private Vector<Employee> employeesList = new Vector<Employee>();
-    private Vector<Ticket> RedTickestList =  new Vector<Ticket>();
-    private Vector<Ticket> GreenTicketsList =  new Vector<Ticket>();
-    private Vector<Ticket> YellowTicketsList =  new Vector<Ticket>();
+    private Vector<Employee> employeesList = new Vector<>();
+    private Vector<Ticket> RedTickestList =  new Vector<>();
+    private Vector<Ticket> GreenTicketsList =  new Vector<>();
+    private Vector<Ticket> YellowTicketsList =  new Vector<>();
+    private String excelFileName = "";
+    private String excelFilePath = "";
     
     private static Server INSTANCE = null;
     
@@ -98,8 +100,10 @@ public class Server {
 
             java.io.File file = fc.getSelectedFile();
             String path = fc.getCurrentDirectory().getAbsolutePath();
+            excelFilePath = path;
             System.out.println(path);
             String Filename = fc.getName(file);
+            excelFileName = Filename;
 
             FileInputStream fileInputStream = new FileInputStream(path + "/" + Filename);
             XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
@@ -108,12 +112,12 @@ public class Server {
 
             int cont = 1;
             while (true){
-                XSSFRow row1 = worksheet.getRow(cont);
+                XSSFRow row = worksheet.getRow(cont);
 
-                XSSFCell cellB1 = row1.getCell((short) 1);
+                XSSFCell cellB1 = row.getCell((short) 1);
                 double b1Val = cellB1.getNumericCellValue();
 
-                XSSFCell cellC1 = row1.getCell((short) 2);
+                XSSFCell cellC1 = row.getCell((short) 2);
                 String c1Val = cellC1.getStringCellValue();
 
                 int b1 = (int) b1Val;
@@ -122,7 +126,7 @@ public class Server {
                 System.out.println("C1: " + c1Val);
                 cont++;
 
-                Ticket nuevo = new Ticket(b1, c1Val);
+                addTicket(b1, c1Val);
 
             }
 
@@ -134,8 +138,188 @@ public class Server {
             //      System.out.println("Yap");
         }
     }
-void addTicket(int _clientID, String _subjet, int _ticketID) {
-        Ticket newTicket = new Ticket( _clientID,  _subjet, _ticketID);
+
+    public void saveExcel(Employee _employee) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream(excelFilePath + "/" + excelFileName);
+            XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
+            XSSFSheet worksheet = workbook.getSheetAt(0);
+
+
+            int cont = 1;
+            for(int index = 0; RedTickestList.get(index)!=null; index++){
+                Ticket _ticket = ticketsList.get(index);
+                XSSFRow row = worksheet.getRow(cont);
+
+                if(_ticket.getTicketStatus() == TicketStatus.RESOLVED){
+                    XSSFCell cellA1 = row.getCell((short) 0);
+                    cellA1.setCellValue(_ticket.getDateReceivedString() + " - " + _ticket.getTimeReceived());
+
+                    XSSFCell cellB1 = row.getCell((short) 1);
+                    cellB1.setCellValue(_ticket.getClientID());
+
+                    XSSFCell cellC1 = row.getCell((short) 2);
+                    cellC1.setCellValue(_ticket.getSubject());
+
+                    XSSFCell cellD1 = row.getCell((short) 3);
+                    cellD1.setCellValue(_ticket.getTicketID());
+
+                    XSSFCell cellE1 = row.getCell((short) 4);
+                    cellE1.setCellValue(_ticket.getTicketCategoryStr());
+
+                    XSSFCell cellF1 = row.getCell((short) 5);
+                    cellF1.setCellValue(_ticket.getEmployeeID());
+
+                    XSSFCell cellG1 = row.getCell((short) 6);
+                    cellG1.setCellValue(_ticket.getDateResolvedString() + " - " + _ticket.getTimeResolvedString());
+
+                    XSSFCell cellH1 = row.getCell((short) 7);
+                    cellH1.setCellValue(_ticket.getTime());
+
+                    XSSFCell cellI1 = row.getCell((short) 8);
+                    cellI1.setCellValue(_ticket.getTicketComment());
+
+                    XSSFCell cellJ1 = row.getCell((short) 9);
+                    cellJ1.setCellValue(_ticket.getTicketStatusStr());
+
+                    cont++;
+                } else {
+                    XSSFCell cellB1 = row.getCell((short) 1);
+                    cellB1.setCellValue(_ticket.getClientID());
+
+                    XSSFCell cellC1 = row.getCell((short) 2);
+                    cellC1.setCellValue(_ticket.getSubject());
+
+                    cont++;
+                }
+
+            }
+
+            for(int index1 = 0; YellowTicketsList.get(index1)!=null; index1++){
+                Ticket _ticket = ticketsList.get(index1);
+                XSSFRow row = worksheet.getRow(cont);
+
+                if(_ticket.getTicketStatus() == TicketStatus.RESOLVED){
+                    XSSFCell cellA1 = row.getCell((short) 0);
+                    cellA1.setCellValue(_ticket.getDateReceivedString() + " - " + _ticket.getTimeReceived());
+
+                    XSSFCell cellB1 = row.getCell((short) 1);
+                    cellB1.setCellValue(_ticket.getClientID());
+
+                    XSSFCell cellC1 = row.getCell((short) 2);
+                    cellC1.setCellValue(_ticket.getSubject());
+
+                    XSSFCell cellD1 = row.getCell((short) 3);
+                    cellD1.setCellValue(_ticket.getTicketID());
+
+                    XSSFCell cellE1 = row.getCell((short) 4);
+                    cellE1.setCellValue(_ticket.getTicketCategoryStr());
+
+                    XSSFCell cellF1 = row.getCell((short) 5);
+                    cellF1.setCellValue(_ticket.getEmployeeID());
+
+                    XSSFCell cellG1 = row.getCell((short) 6);
+                    cellG1.setCellValue(_ticket.getDateResolvedString() + " - " + _ticket.getTimeResolvedString());
+
+                    XSSFCell cellH1 = row.getCell((short) 7);
+                    cellH1.setCellValue(_ticket.getTime());
+
+                    XSSFCell cellI1 = row.getCell((short) 8);
+                    cellI1.setCellValue(_ticket.getTicketComment());
+
+                    XSSFCell cellJ1 = row.getCell((short) 9);
+                    cellJ1.setCellValue(_ticket.getTicketStatusStr());
+
+                    cont++;
+
+                } else {
+                    XSSFCell cellB1 = row.getCell((short) 1);
+                    cellB1.setCellValue(_ticket.getClientID());
+
+                    XSSFCell cellC1 = row.getCell((short) 2);
+                    cellC1.setCellValue(_ticket.getSubject());
+
+                    cont++;
+
+                }
+            }
+
+            for(int index2 = 0; GreenTicketsList.get(index2)!=null; index2++){
+                Ticket _ticket = ticketsList.get(index2);
+                XSSFRow row = worksheet.getRow(cont);
+
+                if(_ticket.getTicketStatus() == TicketStatus.RESOLVED){
+                    XSSFCell cellA1 = row.getCell((short) 0);
+                    cellA1.setCellValue(_ticket.getDateReceivedString() + " - " + _ticket.getTimeReceived());
+
+                    XSSFCell cellB1 = row.getCell((short) 1);
+                    cellB1.setCellValue(_ticket.getClientID());
+
+                    XSSFCell cellC1 = row.getCell((short) 2);
+                    cellC1.setCellValue(_ticket.getSubject());
+
+                    XSSFCell cellD1 = row.getCell((short) 3);
+                    cellD1.setCellValue(_ticket.getTicketID());
+
+                    XSSFCell cellE1 = row.getCell((short) 4);
+                    cellE1.setCellValue(_ticket.getTicketCategoryStr());
+
+                    XSSFCell cellF1 = row.getCell((short) 5);
+                    cellF1.setCellValue(_ticket.getEmployeeID());
+
+                    XSSFCell cellG1 = row.getCell((short) 6);
+                    cellG1.setCellValue(_ticket.getDateResolvedString() + " - " + _ticket.getTimeResolvedString());
+
+                    XSSFCell cellH1 = row.getCell((short) 7);
+                    cellH1.setCellValue(_ticket.getTime());
+
+                    XSSFCell cellI1 = row.getCell((short) 8);
+                    cellI1.setCellValue(_ticket.getTicketComment());
+
+                    XSSFCell cellJ1 = row.getCell((short) 9);
+                    cellJ1.setCellValue(_ticket.getTicketStatusStr());
+
+                    cont++;
+
+                } else {
+
+                    XSSFCell cellB1 = row.getCell((short) 1);
+                    cellB1.setCellValue(_ticket.getClientID());
+
+                    XSSFCell cellC1 = row.getCell((short) 2);
+                    cellC1.setCellValue(_ticket.getSubject());
+
+                    cont++;
+
+                }
+            }
+
+            for(int index3 = 0; ticketsList.get(index3)!=null; index3++){
+                Ticket _ticket = ticketsList.get(index3);
+                XSSFRow row = worksheet.getRow(cont);
+
+                XSSFCell cellB1 = row.getCell((short) 1);
+                cellB1.setCellValue(_ticket.getClientID());
+
+                XSSFCell cellC1 = row.getCell((short) 2);
+                cellC1.setCellValue(_ticket.getSubject());
+
+                cont++;
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            //} catch (NullPointerException e){
+            //      System.out.println("Yap");
+        }
+    }
+
+
+
+
+        void addTicket(int _clientID, String _subjet) {
+        Ticket newTicket = new Ticket( _clientID,  _subjet);
         this.ticketsList.add(newTicket);
         
     }

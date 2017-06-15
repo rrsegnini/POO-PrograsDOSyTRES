@@ -40,15 +40,15 @@ public class Ticket implements AttentionMetric {
      * @param _clientID
      * @param _subjet 
      */
-    public Ticket (int _clientID, String _subjet, int _ticketID) {
+    public Ticket (int _clientID, String _subjet) {
         
         
         this.clientID = _clientID;
-        this.ticketID = _ticketID;
         this.subjet = _subjet;
         TicketStatus _status = TicketStatus.PENDING;
         this.status = _status;
         totalCreated += 1;
+        this.ticketID = totalCreated;
     }
     
     int getClientID() {
@@ -181,6 +181,16 @@ public class Ticket implements AttentionMetric {
    }
  
    public Date getDateResolved() {return this.dateResolved;}
+
+    public String getTimeResolvedString() {
+        String time =  new SimpleDateFormat("HH:mm:ss").format(this.dateResolved);
+        return time;
+    }
+
+    public String getDateResolvedString() {
+        String date =  new SimpleDateFormat("MM/dd/yyyy").format(this.dateResolved);
+        return date;
+    }
    
    public void setTimeSolved( int _seconds) {
        this.timeBeingProcessed = _seconds;
