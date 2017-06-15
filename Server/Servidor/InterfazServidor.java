@@ -1,8 +1,6 @@
+package Servidor;
 
 import java.awt.Color;
-import java.util.Collections;
-import java.util.Locale;
-import java.util.Vector;
 import javax.swing.UIManager;
 
 

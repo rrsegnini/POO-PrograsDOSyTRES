@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servidor_administrador;
+package Servidor;
 
 /**
  *
  * @author danielalvarado
  */
-public enum TicketCategory {
-    URGENT,MEDIUM,LOW
+public enum TicketStatus {
+    PENDING,PROCESSING,RESOLVED
 }
