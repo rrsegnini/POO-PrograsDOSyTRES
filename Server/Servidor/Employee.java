@@ -5,7 +5,9 @@
  */
 package Servidor;
 
+import java.util.Date;
 import java.util.Vector;
+
 
 /**
  *
@@ -18,10 +20,11 @@ public class Employee {
     private String fullName;
     private  EmployeeStatus status;
     //NUEVO
-    private int ticketsReceived;
     
-    
+    private Vector<Ticket> ticketsReceived =  new Vector<Ticket>();
     private Vector<Ticket> ticketList =  new Vector<Ticket>();
+    
+    public Employee() {};
     
     public Employee (int _employeeID,String _email, String _password, String _fullName) {
         
@@ -56,8 +59,8 @@ public class Employee {
     
     public int getID() {return this.employeeID;}
     
-    public void addTicketReceived() {
-        this.ticketsReceived++;
+    public void addTicketReceived(Ticket _ticket) {
+        this.ticketsReceived.add(_ticket);
     }
     
     /**
@@ -78,6 +81,39 @@ public class Employee {
         
         return totalSecs/count;
         
+    }
+    
+    public boolean successfulLogin(String _email,String _password) {
+        if (this.email == _email && this.password == _password) {
+            return true;
+        }
+        return false;
+    }
+    
+    public Vector<Ticket> getTicketsInDateSolved(Date _date) {
+        Vector<Ticket> list = new Vector<Ticket>();
+        Ticket ticket;
+        for (int i = 0; i < this.ticketList.size();i ++) {
+            ticket = this.ticketList.get(i);
+            if (_date.compareTo(ticket.getDateReceived()) <= 0) {
+                list.add(ticket);
+            }
+        }
+        return list;
+    }
+    
+    public Vector<Ticket> getTicketsReceived() {return this.ticketsReceived;}
+    
+    public Vector<Ticket> getTicketsInDateReceived(Date _date) {
+        Vector<Ticket> list = new Vector<Ticket>();
+        Ticket ticket;
+        for (int i = 0; i < this.ticketsReceived.size();i ++) {
+            ticket = this.ticketsReceived.get(i);
+            if (_date.compareTo(ticket.getDateReceived()) <= 0) {
+                list.add(ticket);
+            }
+        }
+        return list;
     }
     
 }
