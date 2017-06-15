@@ -20,7 +20,7 @@ import java.awt.event.ActionListener;
  * @author CASA
  */
 public class InterfazServidor extends javax.swing.JDialog {
-
+    Server theServer = Server.getInstance();
     /**
      * Creates new form InterfazServidor
      */
@@ -93,6 +93,11 @@ public class InterfazServidor extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tabRojos.setBorder(javax.swing.BorderFactory.createCompoundBorder());
+        tabRojos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabRojosMouseClicked(evt);
+            }
+        });
 
         listaTicketsPendientes.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -257,10 +262,10 @@ public class InterfazServidor extends javax.swing.JDialog {
 
     private void listaTicketsPendientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaTicketsPendientesMouseClicked
         // TODO add your handling code here:
-        listaTicketsPendientes.getSelectedIndices();
-        listaTicketsPendientes.getSelectedIndex();
-        listaTicketsPendientes.getMaxSelectionIndex();
-        listaTicketsPendientes.isSelectedIndex(WIDTH);
+      //  listaTicketsPendientes.getSelectedIndices();
+       // listaTicketsPendientes.getSelectedIndex();
+       // listaTicketsPendientes.getMaxSelectionIndex();
+        //listaTicketsPendientes.isSelectedIndex(WIDTH);
         
         //String ticketSeleccionado = listaTicketsPendientes.getSelectedValuesList().get(listaTicketsPendientes.getMaxSelectionIndex());
         String ticketSeleccionado = listaTicketsPendientes.getSelectedValue();
@@ -297,28 +302,28 @@ public class InterfazServidor extends javax.swing.JDialog {
     private void botonEnviarColaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEnviarColaMouseClicked
         // TODO add your handling code here:
         //listaTicketsPendientes.getSelectionModel().
-        java.util.List<String> listaRevista = listaTicketsPendientes.getSelectedValuesList();
-        botonEnviarCola.addActionListener(l);
+        java.util.List<String> listaTickets = listaTicketsPendientes.getSelectedValuesList();
+        //botonEnviarCola.addActionListener(l);
         
-        javax.swing.DefaultListModel<String> listaLibrosString =  new javax.swing.DefaultListModel<String>();
+        javax.swing.DefaultListModel<String> listaTicketString =  new javax.swing.DefaultListModel<String>();
         
-        int largo = listaRevista.size();
+        int largo = listaTickets.size();
         if (largo>0) {
             for (int i = 0; i < largo; i++) {
-               listaLibrosString.addElement(listaRevista.get(i));
+               listaTicketString.addElement(listaTickets.get(i));
                 
             }
         }
         
         
         if (botonEnviarCola.getText() == "Enviar a cola verde"){
-        colaVerdes.setModel(listaLibrosString);
+        colaVerdes.setModel(listaTicketString);
         }
         else if (botonEnviarCola.getText() == "Enviar a cola amarilla"){
-        colaAmarillos.setModel(listaLibrosString);
+        colaAmarillos.setModel(listaTicketString);
         }
         else if (botonEnviarCola.getText() == "Enviar a cola roja"){
-        colaRojos.setModel(listaLibrosString);
+        colaRojos.setModel(listaTicketString);
         }
        
         
@@ -349,6 +354,26 @@ public class InterfazServidor extends javax.swing.JDialog {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_botonActualizarMouseClicked
+
+    private void tabRojosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabRojosMouseClicked
+        // TODO add your handling code here:
+        Vector<Ticket> vectorTickets = theServer.getAllTickets();
+        
+        //java.util.List<String> listaTickets = listaTicketsPendientes.getSelectedValuesList();
+        //botonEnviarCola.addActionListener(l);
+        
+        javax.swing.DefaultListModel<String> listaTicketString =  new javax.swing.DefaultListModel<String>();
+        
+        int largo = vectorTickets.size();
+        if (largo>0) {
+            for (int i = 0; i < largo; i++) {
+               listaTicketString.addElement(vectorTickets.get(i).getSubject());
+                
+            }
+        }
+        listaTicketsPendientes.setModel(listaTicketString);
+        
+    }//GEN-LAST:event_tabRojosMouseClicked
 
     /**
      * @param args the command line arguments
