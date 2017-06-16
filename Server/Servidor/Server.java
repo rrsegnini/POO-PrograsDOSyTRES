@@ -46,6 +46,9 @@ public class Server {
             socketserver.start();         
             //new SocketThread(so).start();
         //}
+    
+        
+        
     /*
     so = sc.accept();
     //Inicia el socket, ahora esta esperando una conexión por parte del cliente
@@ -96,19 +99,19 @@ public class Server {
     public void readExcel() {
         try {
             final JFileChooser fc = new JFileChooser();
-            /*fc.showOpenDialog(fc);
+            fc.showOpenDialog(fc);
 
             java.io.File file = fc.getSelectedFile();
             String path = fc.getCurrentDirectory().getAbsolutePath();
             excelFilePath = path;
             System.out.println(path);
             String Filename = fc.getName(file);
-            excelFileName = Filename;*/
+            excelFileName = Filename;
 
-           // FileInputStream fileInputStream = new FileInputStream(path + "/" + Filename);
-           excelFilePath = "C:/Users/CASA/Desktop/PrograTresPOO/POO-PrograsDOSyTRES";
-           excelFileName = "TICKETS.xlsx";
-            FileInputStream fileInputStream = new FileInputStream("C:/Users/CASA/Desktop/PrograTresPOO/POO-PrograsDOSyTRES/TICKETS.xlsx");
+            FileInputStream fileInputStream = new FileInputStream(path + "/" + Filename);
+            //excelFilePath = "C:/Users/CASA/Desktop/PrograTresPOO/POO-PrograsDOSyTRES";
+            //excelFileName = "TICKETS.xlsx";
+            //FileInputStream fileInputStream = new FileInputStream("C:/Users/CASA/Desktop/PrograTresPOO/POO-PrograsDOSyTRES/TICKETS.xlsx");
             XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
             XSSFSheet worksheet = workbook.getSheetAt(0);
 

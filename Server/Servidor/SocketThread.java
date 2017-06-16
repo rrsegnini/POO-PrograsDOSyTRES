@@ -123,6 +123,33 @@ public class SocketThread extends Thread{
                     JOptionPane.showMessageDialog(serverGUI, "Un empleado ha comenzado a atender el ticket con el subject: " + buffer);
                     server.getTicketWString(buffer).setTicketStatus("En Atencion");
                 }
+                else if (buffer.equals("reporte")){
+                    String user = "";
+                    String password = "";
+                    System.out.println("reporte");
+                    buffer = (String)entrada.readUTF(); 
+                    JOptionPane.showMessageDialog(serverGUI, "Un empleado ha solicitado un reporte: " + buffer);
+                    String[] tokens = buffer.split("\\;");
+                    int _employeeiD=0;int _ticketID=0; String _complain=""; 
+                    int _secondsSpen=0;
+                    String _resolvedComment=""; Date _dateResolved = new java.util.Date();;
+                    int cont=0;
+                    for (String token : tokens) {
+                        //System.out.println(token);
+                        if (cont == 0){
+                         user = token;
+                         
+                        }
+                        else if (cont == 1){
+                           password = token;
+                        }
+                        cont ++;
+                    }
+                    Date date = new Date();
+                    String respuesta =  server.getEmployeeReport(user, password, date);
+                    System.out.println(respuesta);
+                }
+                
                 else if (buffer.equals("listo")){
                     System.out.println("listo");
                     buffer = (String)entrada.readUTF(); 

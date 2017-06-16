@@ -118,6 +118,10 @@ public class Interfaz extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         datosListo = new javax.swing.JTextArea();
         botonDatosEnviar = new javax.swing.JButton();
+        reporteFrame = new javax.swing.JFrame();
+        usr = new javax.swing.JTextField();
+        pswrd = new javax.swing.JTextField();
+        botonGenerarReporte = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         usuarioTxt = new javax.swing.JTextField();
         passwordTxt = new javax.swing.JTextField();
@@ -152,6 +156,11 @@ public class Interfaz extends javax.swing.JFrame {
         });
 
         jButton2.setText("Generar reporte");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         botonDesconectar.setText("Desconectar");
         botonDesconectar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -454,6 +463,43 @@ public class Interfaz extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(botonDatosEnviar)
                 .addContainerGap())
+        );
+
+        usr.setText("rojassegniniroberto@gmail.com");
+
+        pswrd.setText("2016139072");
+
+        botonGenerarReporte.setText("Generar reporte");
+        botonGenerarReporte.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                botonGenerarReporteMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout reporteFrameLayout = new javax.swing.GroupLayout(reporteFrame.getContentPane());
+        reporteFrame.getContentPane().setLayout(reporteFrameLayout);
+        reporteFrameLayout.setHorizontalGroup(
+            reporteFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, reporteFrameLayout.createSequentialGroup()
+                .addContainerGap(64, Short.MAX_VALUE)
+                .addGroup(reporteFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(pswrd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(reporteFrameLayout.createSequentialGroup()
+                        .addComponent(botonGenerarReporte)
+                        .addGap(18, 18, 18)))
+                .addGap(126, 126, 126))
+        );
+        reporteFrameLayout.setVerticalGroup(
+            reporteFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(reporteFrameLayout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addComponent(usr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(pswrd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addComponent(botonGenerarReporte)
+                .addGap(40, 40, 40))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -812,6 +858,22 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_botonCancelarActionPerformed
 
+    private void botonGenerarReporteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonGenerarReporteMouseClicked
+        // TODO add your handling code here:
+        
+        String userst = usr.getText();
+        String pass = pswrd.getText();
+        
+        String msg = userst + ";" + pass;
+        client.send("reporte", msg);
+    }//GEN-LAST:event_botonGenerarReporteMouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+        
+        reporteFrame.setVisible(true);
+    }//GEN-LAST:event_jButton2MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -863,6 +925,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton botonDatosEnviar;
     private javax.swing.JButton botonDesconectar;
     private javax.swing.JButton botonEnviarSinExito;
+    private javax.swing.JButton botonGenerarReporte;
     private javax.swing.JButton botonRojo;
     private javax.swing.JButton botonVerde;
     private javax.swing.JLabel chronometerLabel;
@@ -889,7 +952,10 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JList<String> listTickets;
     private javax.swing.JTextField passwordTxt;
     private javax.swing.JTextField portText;
+    private javax.swing.JTextField pswrd;
     private javax.swing.JTextArea razonSinExito;
+    private javax.swing.JFrame reporteFrame;
+    private javax.swing.JTextField usr;
     private javax.swing.JTextField usuarioTxt;
     // End of variables declaration//GEN-END:variables
 }
