@@ -41,16 +41,26 @@ public class Employee {
     public String getEmail() {return this.email;}
     public String getFullName() {return this.fullName;}
     
+    /**
+     * This methods changes the Employee's status to CONNECTED
+     */
     public void connect() {
         EmployeeStatus connect = EmployeeStatus.CONNECTED;
         this.status = connect;
     }
     
+    /**
+     * This methods changes the Employee's status to DISCONNECTED
+     */
     public void disconnect() {
         EmployeeStatus disconnect = EmployeeStatus.DISCONNECTED;
         this.status = disconnect;
     }
 
+    /**
+     * This methods adds a ticket to the Tickets solved by this employee
+     * @param _newTicket 
+     */
     public void addTicket(Ticket _newTicket) {
         this.ticketList.add(_newTicket);
     }
@@ -59,6 +69,12 @@ public class Employee {
     
     public int getID() {return this.employeeID;}
     
+
+    /**
+     * This methods simply adds a ticket to the list that contains every ticket 
+     * the employee has received
+     * @param _ticket Object ticket received by the employee.
+     */
     public void addTicketReceived(Ticket _ticket) {
         this.ticketsReceived.add(_ticket);
     }
@@ -83,6 +99,15 @@ public class Employee {
         
     }
     
+
+    /**
+     * This methods returns true if the combination of 
+     * password and email is correct
+     * @param _email string with the email.
+     * @param _password string with the password
+     * @return returns true if they are correct, false if they're not.
+     * 
+     */
     public boolean successfulLogin(String _email,String _password) {
         if (this.email == _email && this.password == _password) {
             return true;
@@ -90,6 +115,12 @@ public class Employee {
         return false;
     }
     
+    /**
+     * This method is used to get a list of tickets solved in a before the date given.
+     * @param _date Object date used to get the tickets.
+     * @return returns the Vector with all the tickets the employee solved before
+     * the date
+     */
     public Vector<Ticket> getTicketsInDateSolved(Date _date) {
         Vector<Ticket> list = new Vector<Ticket>();
         Ticket ticket;
@@ -104,6 +135,13 @@ public class Employee {
     
     public Vector<Ticket> getTicketsReceived() {return this.ticketsReceived;}
     
+
+    /**
+     * This method is used to get a list of tickets received in a before the date given.
+     * @param _date Object date used to get the tickets.
+     * @return returns the Vector with all the tickets the employee received before
+     * the date
+     */
     public Vector<Ticket> getTicketsInDateReceived(Date _date) {
         Vector<Ticket> list = new Vector<Ticket>();
         Ticket ticket;
