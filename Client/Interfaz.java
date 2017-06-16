@@ -2,6 +2,16 @@
 
 import java.util.Vector;
 import javax.swing.JOptionPane;
+////-----------------111111===-==============================================================================
+////-----------------111111===-==============================================================================
+////-----------------111111===-==============================================================================////-----------------111111===-==============================================================================
+////-----------------111111===-==============================================================================
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
+////-----------------111111===-==============================================================================
+////-----------------111111===-==============================================================================
+////-----------------111111===-==============================================================================
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -21,7 +31,50 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
+        ////-----------------111111===-==============================================================================
+        
+        setLocationRelativeTo(null);
+        t = new Timer(1000,acciones);
+        
     }
+    
+    ////-----------------111111===-==============================================================================
+    ////-----------------111111===-==============================================================================
+    ////-----------------111111===-==============================================================================
+    ////-----------------111111===-==============================================================================
+    ////-----------------111111===-==============================================================================
+    private Timer t;
+    private  int h,m,s;
+    private int segundosTotales;
+    private ActionListener acciones = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                s++;
+                if (s == 60) {
+                    s = 0;
+                    ++m;
+                }
+
+                if (m == 60) {
+                    m = 0;
+                    ++h;
+                }
+                actualizarLabelCronometro();
+
+            }
+            
+    };
+    
+    private void actualizarLabelCronometro() {
+        String tiempo = (h<=9? "0":"")+h+ ":"+(m<=9?"0":"")+m+":"+(s<=9?"0":"")+s;
+        chronometerLabel.setText(tiempo);
+        
+    
+    }
+    
+    ////-----------------111111===-==============================================================================
+    ////-----------------111111===-==============================================================================
+    ////-----------------111111===-==============================================================================
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,6 +106,7 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         botonAtendido = new javax.swing.JButton();
         botonCancelar = new javax.swing.JButton();
+        chronometerLabel = new javax.swing.JLabel();
         frameSinExito = new javax.swing.JDialog();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -224,9 +278,19 @@ public class Interfaz extends javax.swing.JFrame {
         Cronometro.setMinimumSize(new java.awt.Dimension(350, 300));
 
         Reanudar.setText("Reanudar");
+        Reanudar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ReanudarMouseClicked(evt);
+            }
+        });
 
         Pausar.setText("Pausar");
         Pausar.setMinimumSize(new java.awt.Dimension(200, 200));
+        Pausar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PausarMouseClicked(evt);
+            }
+        });
 
         jLabel4.setText("Cronómetro");
 
@@ -249,6 +313,8 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        chronometerLabel.setText("jLabel7");
+
         javax.swing.GroupLayout CronometroLayout = new javax.swing.GroupLayout(Cronometro.getContentPane());
         Cronometro.getContentPane().setLayout(CronometroLayout);
         CronometroLayout.setHorizontalGroup(
@@ -266,7 +332,10 @@ public class Interfaz extends javax.swing.JFrame {
                             .addComponent(Pausar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(CronometroLayout.createSequentialGroup()
                         .addGap(136, 136, 136)
-                        .addComponent(jLabel4)))
+                        .addComponent(jLabel4))
+                    .addGroup(CronometroLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(chronometerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         CronometroLayout.setVerticalGroup(
@@ -274,7 +343,9 @@ public class Interfaz extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CronometroLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chronometerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(CronometroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Reanudar)
                     .addComponent(Pausar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -385,6 +456,11 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel1.setText("Tickets");
 
         jTextField1.setText("Usuario");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setText("Contraseña");
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -538,14 +614,16 @@ public class Interfaz extends javax.swing.JFrame {
       String ticketSeleccionado = listTickets.getSelectedValue();
         datosTicket.setText(ticketSeleccionado);
     }//GEN-LAST:event_listTicketsMouseClicked
-
+    /////////////
+    
     private void botonAtenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAtenderMouseClicked
         // TODO add your handling code here:
-       javax.swing.Timer t;
+       
        
        Cronometro.setVisible(true);
-       
-       
+       t.start();
+       Reanudar.setEnabled(false);
+       Pausar.setEnabled(true);
         
     }//GEN-LAST:event_botonAtenderMouseClicked
 
@@ -557,6 +635,15 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
         java.awt.Toolkit.getDefaultToolkit().beep();
         frameSinExito.setVisible(true);
+        
+        if (t.isRunning()) {
+            t.stop();
+            Reanudar.setEnabled(true);
+        }
+        //Esta variable es la enviada por el buffer
+        segundosTotales = h*60*60 + m*60 + s;
+        h = 0; m = 0; s = 0;
+        actualizarLabelCronometro();
         
        
     }//GEN-LAST:event_botonCancelarMouseClicked
@@ -595,6 +682,20 @@ public class Interfaz extends javax.swing.JFrame {
         java.awt.Toolkit.getDefaultToolkit().beep();
         datosTicketListo.setVisible(false);
         Cronometro.setVisible(false);
+        
+        //
+        if (t.isRunning()) {
+            t.stop();
+            Reanudar.setEnabled(true);
+        }
+        //Esta variable es la enviada por el buffer
+        segundosTotales = h*60*60 + m*60 + s;
+        h = 0; m = 0; s = 0;
+        actualizarLabelCronometro();
+        
+        
+        
+        
     }//GEN-LAST:event_botonDatosEnviarMouseClicked
 
     private void botonDesconectarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonDesconectarMouseClicked
@@ -602,6 +703,28 @@ public class Interfaz extends javax.swing.JFrame {
         frameColores.setVisible(false);
         setVisible(true);
     }//GEN-LAST:event_botonDesconectarMouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void ReanudarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReanudarMouseClicked
+        // TODO add your handling code here:
+        t.start();
+        Reanudar.setEnabled(false);
+        Pausar.setEnabled(true);
+        
+        
+    }//GEN-LAST:event_ReanudarMouseClicked
+
+    private void PausarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PausarMouseClicked
+        // TODO add your handling code here:
+        t.stop();
+        Reanudar.setEnabled(true);
+        Pausar.setEnabled(false);
+        
+        
+    }//GEN-LAST:event_PausarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -656,6 +779,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton botonEnviarSinExito;
     private javax.swing.JButton botonRojo;
     private javax.swing.JButton botonVerde;
+    private javax.swing.JLabel chronometerLabel;
     private javax.swing.JTextArea datosTicket;
     private javax.swing.JDialog datosTicketListo;
     private javax.swing.JFrame frameColores;
