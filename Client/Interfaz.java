@@ -25,6 +25,7 @@ import javax.swing.Timer;
  */
 public class Interfaz extends javax.swing.JFrame {
     Client client = new Client();
+    String ultimoTicketAtendido = "";
     //client.initClient();
     /**
      * Creates new form Interfaz
@@ -115,11 +116,11 @@ public class Interfaz extends javax.swing.JFrame {
         datosTicketListo = new javax.swing.JDialog();
         jLabel6 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        datosListo = new javax.swing.JTextArea();
         botonDatosEnviar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        usuarioTxt = new javax.swing.JTextField();
+        passwordTxt = new javax.swing.JTextField();
         frameLogIn = new javax.swing.JButton();
 
         frameColores.setMinimumSize(new java.awt.Dimension(400, 300));
@@ -313,8 +314,6 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
-        chronometerLabel.setText("jLabel7");
-
         javax.swing.GroupLayout CronometroLayout = new javax.swing.GroupLayout(Cronometro.getContentPane());
         Cronometro.getContentPane().setLayout(CronometroLayout);
         CronometroLayout.setHorizontalGroup(
@@ -406,9 +405,9 @@ public class Interfaz extends javax.swing.JFrame {
 
         jLabel6.setText("Datos del ticket atendido:");
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane4.setViewportView(jTextArea2);
+        datosListo.setColumns(20);
+        datosListo.setRows(5);
+        jScrollPane4.setViewportView(datosListo);
 
         botonDatosEnviar.setText("Enviar");
         botonDatosEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -455,17 +454,17 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Tickets");
 
-        jTextField1.setText("Usuario");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        usuarioTxt.setText("rojassegniniroberto@gmail.com");
+        usuarioTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                usuarioTxtActionPerformed(evt);
             }
         });
 
-        jTextField2.setText("Contraseña");
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        passwordTxt.setText("2016139072");
+        passwordTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                passwordTxtActionPerformed(evt);
             }
         });
 
@@ -490,8 +489,8 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(usuarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(85, 85, 85))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(frameLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -506,9 +505,9 @@ public class Interfaz extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(51, 51, 51)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(usuarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addComponent(frameLogIn)
                 .addGap(37, 37, 37))
@@ -517,16 +516,16 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void passwordTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_passwordTxtActionPerformed
 
     private void frameLogInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_frameLogInMouseClicked
         // TODO add your handling code here:
         frameColores.setVisible(true);
        setVisible(false);
-       client.initClient();
-       client.send();
+       client.initClient(usuarioTxt.getText(), passwordTxt.getText());
+       //client.send();
        
        frameColores.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
@@ -551,20 +550,8 @@ public class Interfaz extends javax.swing.JFrame {
     private void botonRojoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRojoMouseClicked
         // TODO add your handling code here:
         javax.swing.DefaultListModel<String> listaTicketString =  new javax.swing.DefaultListModel<String>();
-        String vectorTickets = client.requestTickets();
+        String vectorTickets = client.requestTickets("Urgente");
         int cont = 0;
-        /*java.util.StringTokenizer tokenizer = new java.util.StringTokenizer(vectorTickets, ";");
-        while (tokenizer.hasMoreTokens()) {
-            if (cont == 0){
-             System.out.println(tokenizer.nextToken());
-             listaTicketString.addElement(tokenizer.nextToken());
-            }
-            cont++;
-            if (cont == 2){
-                cont = 0;
-            }
-
-       }*/
         
         String[] tokens = vectorTickets.split("\\;");
         for (String token : tokens) {
@@ -591,11 +578,59 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonAmarilloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAmarilloMouseClicked
         // TODO add your handling code here:
+        javax.swing.DefaultListModel<String> listaTicketString =  new javax.swing.DefaultListModel<String>();
+        String vectorTickets = client.requestTickets("Media");
+        int cont = 0;
+        
+        String[] tokens = vectorTickets.split("\\;");
+        for (String token : tokens) {
+            //System.out.println(token);
+            if (cont == 0){
+             System.out.println(token);
+             listaTicketString.addElement(token);
+            }
+            cont++;
+            if (cont == 3){
+                cont = 0;
+            }
+        }
+        /*
+        int largo = vectorTickets.size();
+        if (largo>0) {
+            for (int i = 0; i < largo; i++) {
+               listaTicketString.addElement(vectorTickets.get(i).getSubject());
+            }
+        }*/
+        listTickets.setModel(listaTicketString);
         frameTickets.setVisible(true);
     }//GEN-LAST:event_botonAmarilloMouseClicked
 
     private void botonVerdeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonVerdeMouseClicked
         // TODO add your handling code here:
+        javax.swing.DefaultListModel<String> listaTicketString =  new javax.swing.DefaultListModel<String>();
+        String vectorTickets = client.requestTickets("Leve");
+        int cont = 0;
+        
+        String[] tokens = vectorTickets.split("\\;");
+        for (String token : tokens) {
+            //System.out.println(token);
+            if (cont == 0){
+             System.out.println(token);
+             listaTicketString.addElement(token);
+            }
+            cont++;
+            if (cont == 3){
+                cont = 0;
+            }
+        }
+        /*
+        int largo = vectorTickets.size();
+        if (largo>0) {
+            for (int i = 0; i < largo; i++) {
+               listaTicketString.addElement(vectorTickets.get(i).getSubject());
+            }
+        }*/
+        listTickets.setModel(listaTicketString);
         frameTickets.setVisible(true);
     }//GEN-LAST:event_botonVerdeMouseClicked
 
@@ -618,8 +653,8 @@ public class Interfaz extends javax.swing.JFrame {
     
     private void botonAtenderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonAtenderMouseClicked
         // TODO add your handling code here:
-       
-       
+       ultimoTicketAtendido = listTickets.getSelectedValue();
+       client.send("atender", listTickets.getSelectedValue());
        Cronometro.setVisible(true);
        t.start();
        Reanudar.setEnabled(false);
@@ -678,12 +713,11 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonDatosEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonDatosEnviarMouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(rootPane, "Enviado con éxito");
-        java.awt.Toolkit.getDefaultToolkit().beep();
-        datosTicketListo.setVisible(false);
-        Cronometro.setVisible(false);
-        
         //
+        java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("yyyy/MM/dd");
+        java.util.Date date = new java.util.Date();
+        dateFormat.format(date);
+        
         if (t.isRunning()) {
             t.stop();
             Reanudar.setEnabled(true);
@@ -692,6 +726,19 @@ public class Interfaz extends javax.swing.JFrame {
         segundosTotales = h*60*60 + m*60 + s;
         h = 0; m = 0; s = 0;
         actualizarLabelCronometro();
+        
+        String datosAtendido = usuarioTxt.getText() + ";" + ultimoTicketAtendido
+                + ";" + ultimoTicketAtendido
+                + ";" + segundosTotales
+                + ";" +  datosListo.getText() + ";" + dateFormat;
+        
+        client.send("listo", datosAtendido);
+        JOptionPane.showMessageDialog(rootPane, "Enviado con éxito");
+        java.awt.Toolkit.getDefaultToolkit().beep();
+        datosTicketListo.setVisible(false);
+        Cronometro.setVisible(false);
+        
+        
         
         
         
@@ -704,9 +751,9 @@ public class Interfaz extends javax.swing.JFrame {
         setVisible(true);
     }//GEN-LAST:event_botonDesconectarMouseClicked
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void usuarioTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioTxtActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_usuarioTxtActionPerformed
 
     private void ReanudarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ReanudarMouseClicked
         // TODO add your handling code here:
@@ -780,6 +827,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton botonRojo;
     private javax.swing.JButton botonVerde;
     private javax.swing.JLabel chronometerLabel;
+    private javax.swing.JTextArea datosListo;
     private javax.swing.JTextArea datosTicket;
     private javax.swing.JDialog datosTicketListo;
     private javax.swing.JFrame frameColores;
@@ -799,9 +847,8 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JList<String> listTickets;
+    private javax.swing.JTextField passwordTxt;
+    private javax.swing.JTextField usuarioTxt;
     // End of variables declaration//GEN-END:variables
 }

@@ -109,7 +109,7 @@ public class Employee {
      * 
      */
     public boolean successfulLogin(String _email,String _password) {
-        if (this.email == _email && this.password == _password) {
+        if (this.email.equals(_email) && this.password.equals(_password)) {
             return true;
         }
         return false;

@@ -51,12 +51,18 @@ public class InterfazServidor extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         colaRojos = new javax.swing.JList<>();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        infoRojos = new javax.swing.JTextArea();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         colaAmarillos = new javax.swing.JList<>();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        infoAmarillos = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         colaVerdes = new javax.swing.JList<>();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        infoVerdes = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
 
         LogInServer.setMinimumSize(new java.awt.Dimension(400, 300));
@@ -162,7 +168,17 @@ public class InterfazServidor extends javax.swing.JDialog {
 
         tabRojos.addTab("INBOX", jPanel1);
 
+        colaRojos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                colaRojosMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(colaRojos);
+
+        infoRojos.setEditable(false);
+        infoRojos.setColumns(20);
+        infoRojos.setRows(5);
+        jScrollPane4.setViewportView(infoRojos);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -170,41 +186,69 @@ public class InterfazServidor extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(53, 53, 53)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(192, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         tabRojos.addTab("Rojos", jPanel3);
 
+        colaAmarillos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                colaAmarillosMouseClicked(evt);
+            }
+        });
         jScrollPane5.setViewportView(colaAmarillos);
+
+        infoAmarillos.setEditable(false);
+        infoAmarillos.setColumns(20);
+        infoAmarillos.setRows(5);
+        jScrollPane7.setViewportView(infoAmarillos);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                    .addComponent(jScrollPane5))
+                .addContainerGap())
         );
 
         tabRojos.addTab("Amarillos", jPanel4);
 
+        colaVerdes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                colaVerdesMouseClicked(evt);
+            }
+        });
         jScrollPane6.setViewportView(colaVerdes);
+
+        infoVerdes.setEditable(false);
+        infoVerdes.setColumns(20);
+        infoVerdes.setRows(5);
+        jScrollPane8.setViewportView(infoVerdes);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -212,15 +256,19 @@ public class InterfazServidor extends javax.swing.JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                    .addComponent(jScrollPane6))
+                .addContainerGap())
         );
 
         tabRojos.addTab("Verdes", jPanel5);
@@ -272,7 +320,8 @@ public class InterfazServidor extends javax.swing.JDialog {
         Ticket eticket = theServer.getTicketWString(ticketSeleccionado);
         infoTicketsPendientes.setText("ID del ticket: " + eticket.getTicketID() + "\n" + 
                 "Fecha de recibido: " + eticket.getTimeReceived() + "\n" +
-                "Asunto: " + ticketSeleccionado + "\n");
+                "Asunto: " + ticketSeleccionado + "\n"
+        + "Estado: " + eticket.getTicketStatusStr());
         //infoTicketsPendientes
         //Object value;
         //getListCellRendererComponent( listaTicketsPendientes, value, index, isSelected, cellHasFocus );
@@ -408,6 +457,37 @@ public class InterfazServidor extends javax.swing.JDialog {
         
     }//GEN-LAST:event_tabRojosMouseClicked
 
+    private void colaRojosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colaRojosMouseClicked
+        // TODO add your handling code here:
+        String ticketSeleccionado = colaRojos.getSelectedValue();
+        Ticket eticket = theServer.getTicketWString(ticketSeleccionado);
+        infoRojos.setText("ID del ticket: " + eticket.getTicketID() + "\n" + 
+                "Fecha de recibido: " + eticket.getTimeReceived() + "\n" +
+                "Asunto: " + ticketSeleccionado + "\n"
+        + "Estado: " + eticket.getTicketStatusStr());
+    }//GEN-LAST:event_colaRojosMouseClicked
+
+    private void colaAmarillosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colaAmarillosMouseClicked
+        // TODO add your handling code here:
+        String ticketSeleccionado = colaAmarillos.getSelectedValue();
+        Ticket eticket = theServer.getTicketWString(ticketSeleccionado);
+        infoAmarillos.setText("ID del ticket: " + eticket.getTicketID() + "\n" + 
+                "Fecha de recibido: " + eticket.getTimeReceived() + "\n" +
+                "Asunto: " + ticketSeleccionado + "\n"
+        + "Estado: " + eticket.getTicketStatusStr());
+    }//GEN-LAST:event_colaAmarillosMouseClicked
+
+    private void colaVerdesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_colaVerdesMouseClicked
+        // TODO add your handling code here:
+        String ticketSeleccionado = colaVerdes.getSelectedValue();
+        Ticket eticket = theServer.getTicketWString(ticketSeleccionado);
+        infoVerdes.setText("ID del ticket: " + eticket.getTicketID() + "\n" + 
+                "Fecha de recibido: " + eticket.getTimeReceived() + "\n" +
+                "Asunto: " + ticketSeleccionado + "\n"
+        + "Estado: " + eticket.getTicketStatusStr());
+        
+    }//GEN-LAST:event_colaVerdesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -439,7 +519,10 @@ public class InterfazServidor extends javax.swing.JDialog {
     private javax.swing.JList<String> colaAmarillos;
     private javax.swing.JList<String> colaRojos;
     private javax.swing.JList<String> colaVerdes;
+    private javax.swing.JTextArea infoAmarillos;
+    private javax.swing.JTextArea infoRojos;
     private javax.swing.JTextArea infoTicketsPendientes;
+    private javax.swing.JTextArea infoVerdes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -448,8 +531,11 @@ public class InterfazServidor extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
     public javax.swing.JList<String> listaTicketsPendientes;
     private javax.swing.JButton loginServer;
     private javax.swing.JTabbedPane tabRojos;

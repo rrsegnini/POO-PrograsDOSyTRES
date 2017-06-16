@@ -24,14 +24,14 @@ DataInputStream entrada;
 String buffer;
 //Cliente
 
-public void initClient() /*ejecuta este metodo para correr el cliente */{
+public void initClient(String user, String password) /*ejecuta este metodo para correr el cliente */{
     try{
 
         sc = new Socket( HOST , PUERTO ); /*conectar a un servidor en localhost con puerto 5000*/
         entrada = new DataInputStream(sc.getInputStream());
         mensaje = new DataOutputStream(sc.getOutputStream());
-        mensaje.writeUTF("rojassegniniroberto@gmail.com");
-        mensaje.writeUTF("2016139072");
+        mensaje.writeUTF(user);
+        mensaje.writeUTF(password);
         
         //buffer = entrada.readUTF();
         //System.out.println(buffer);
@@ -41,32 +41,50 @@ public void initClient() /*ejecuta este metodo para correr el cliente */{
 
 }
 
-public void send(){
+public void send(String request, String others){
     try{
         mensaje = new DataOutputStream(sc.getOutputStream());
-        mensaje.writeUTF("Hola");
+        mensaje.writeUTF(request);
+        if (request.equals("atender")){
+            mensaje.writeUTF(others);
+        }
+        else if (request.equals("listo")){
+            mensaje.writeUTF(others);
+        }
     }catch(Exception e ){
         System.out.println("Error: "+e.getMessage());
     }
     }
 
-public String requestTickets() /*ejecuta este metodo para correr el cliente */{
-    String ticketsRojos = "";
+public String requestTickets(String categoria) /*ejecuta este metodo para correr el cliente */{
+    String tickets = "";
     try{
+        if (categoria.equals("Urgente")){
         mensaje = new DataOutputStream(sc.getOutputStream());
         mensaje.writeUTF("colaRojos");
-        //mensaje.flush();
-   
-        //bufferObject = new ObjectInputStream(sc.getInputStream());
-        //bufferObject.defaultReadObject();
-        ticketsRojos = entrada.readUTF();
+       
+        tickets = entrada.readUTF();
+        }
+        else if (categoria.equals("Media")){
+        mensaje = new DataOutputStream(sc.getOutputStream());
+        mensaje.writeUTF("colaAmarillos");
+       
+        tickets = entrada.readUTF();
+        }
+        else if (categoria.equals("Leve")){
+        mensaje = new DataOutputStream(sc.getOutputStream());
+        mensaje.writeUTF("colaVerdes");
+       
+        tickets = entrada.readUTF();
+        }
+        
         //bufferObject.defaultReadObject();
         //Object AA = bufferObject.readObject();
        
     }catch(Exception e ){
         System.out.println("Error: "+e.getMessage());
     }
-    return ticketsRojos;
+    return tickets;
     }
 }
 

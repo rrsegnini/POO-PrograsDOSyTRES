@@ -147,7 +147,7 @@ public class Ticket implements AttentionMetric {
         TicketStatus _status = TicketStatus.PENDING;
         String stat =  " ";
         
-        if (this.status == TicketStatus.PENDING) {
+        if (this.status == TicketStatus.PENDING || this.status == TicketStatus.IN_QUEUE) {
             stat = "Pendiente";
         }else if (this.status == TicketStatus.PROCESSING) {
             stat = "En Atencion";

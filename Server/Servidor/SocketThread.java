@@ -4,6 +4,7 @@ import java.net.*;
 
 import java.io.*;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 
 /*
@@ -69,17 +70,23 @@ public class SocketThread extends Thread{
         try {
                 
                 
-                
+                String password = "";
+                String user = "";
                 //entrada = new ObjectInputStream(this.socket.getInputStream());
-                buffer = (String)entrada.readUTF();  //Usuario
-                System.out.println(buffer);
+                user = (String)entrada.readUTF();  //Usuario
+                System.out.println(user);
                 
                 
-                buffer = (String)entrada.readUTF(); //Contraseña
-                System.out.println(buffer);
+                password = (String)entrada.readUTF(); //Contraseña
+                System.out.println(password);
                 
+                if (server.getEmployeeByEmail(user).successfulLogin(user, password)){         
+                    System.out.println("Un cliente se ha conectado.");
+                }
+                else{
+                this.socket.close();
+                }
                 
-                System.out.println("Un cliente se ha conectado.");
             } catch (IOException e) {
                 System.out.println("I/O error: " + e);
             //}catch (java.lang.ClassNotFoundException e) {
@@ -97,9 +104,61 @@ public class SocketThread extends Thread{
                 if (buffer.equals("colaRojos")){
                     System.out.println("Rojos");
                     //salidaObjeto.defaultWriteObject();
-                    //salida.writeUTF(server.getREDticketList());
-                
-                            
+                    salida.writeUTF(server.getREDticketString());      
+                }
+                else if (buffer.equals("colaAmarillos")){
+                    System.out.println("Yellows");
+                    //salidaObjeto.defaultWriteObject();
+                    salida.writeUTF(server.getYELLOWticketString());      
+                }
+                else if (buffer.equals("colaVerdes")){
+                    System.out.println("Verdes");
+                    //salidaObjeto.defaultWriteObject();
+                    salida.writeUTF(server.getGREENticketString());      
+                }
+                else if (buffer.equals("atender")){
+                    System.out.println("atender");
+                    buffer = (String)entrada.readUTF(); 
+                    
+                    server.getTicketWString(buffer).setTicketStatus("En Atencion");
+                }
+                else if (buffer.equals("listo")){
+                    System.out.println("listo");
+                    buffer = (String)entrada.readUTF(); 
+                    String[] tokens = buffer.split("\\;");
+                    int _employeeiD=0;int _ticketID=0; String _complain=""; 
+                    int _secondsSpen=0;
+                    String _resolvedComment=""; Date _dateResolved = new java.util.Date();;
+                    int cont=0;
+                    for (String token : tokens) {
+                        //System.out.println(token);
+                        if (cont == 0){
+                         _employeeiD = server.getEmployeeByEmail(token).getID();
+                        }
+                        else if (cont == 1){
+                           _ticketID = server.getTicketWString(token).getTicketID();
+                        }
+                        else if (cont == 2){
+                           _complain = token;
+                        }
+                        else if (cont == 3){
+                           _secondsSpen = Integer.parseInt(token);
+                        }
+                        else if (cont == 4){
+                           _resolvedComment = token;
+                        }
+                        else if (cont == 5){
+                            java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("yyyy/MM/dd");
+                            java.util.Date date = new java.util.Date();
+                            dateFormat.format(date);
+                            _dateResolved = date;
+                        }
+                        
+                        cont++;
+                        
+                    }
+                    server.updateTicket(_employeeiD, _ticketID, _complain, _secondsSpen, _resolvedComment, _dateResolved);
+                    //server.getTicketWString(buffer).setTicketStatus("Atendido");
                 }
                 //mensaje = new DataOutputStream(this.socket.getOutputStream());
 

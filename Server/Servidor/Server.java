@@ -455,10 +455,38 @@ public class Server {
         return this.YellowTicketsList;
     
     }
+    public String getYELLOWticketString() {
+        
+        Ticket _ticket;
+        String yellowTickets = "";
+        for (int i = 0; i < this.YellowTicketsList.size(); i++) {
+            _ticket = this.YellowTicketsList.get(i);
+            yellowTickets += _ticket.getSubject() + ";" + _ticket.getTicketID() + 
+                    ";" + _ticket.getDateReceivedString() + ";";
+            
+        }
+    System.out.println(yellowTickets);
+    return yellowTickets;
+    }
     
     public Vector<Ticket> getGREENticketList() {
         return this.GreenTicketsList;
+        
     }
+        public String getGREENticketString() {
+        
+        Ticket _ticket;
+        String greenTickets = "";
+        for (int i = 0; i < this.GreenTicketsList.size(); i++) {
+            _ticket = this.GreenTicketsList.get(i);
+            greenTickets += _ticket.getSubject() + ";" + _ticket.getTicketID() + 
+                    ";" + _ticket.getDateReceivedString() + ";";
+            
+        }
+    System.out.println(greenTickets);
+    return greenTickets;
+    }
+    
     
     public Vector<Ticket> getAllTickets() {
         return this.ticketsList;
@@ -582,6 +610,19 @@ public class Server {
                 break;
             }
         }
+        return employee;
+    }
+    
+    public Employee getEmployeeByEmail(String _employeeEMAIL) {
+        Employee employee = new Employee();
+         if (this.employeesList.size() > 0){
+            for (int i = 0;i < this.employeesList.size();i ++) {
+                employee = this.employeesList.get(i);
+                if (_employeeEMAIL.equals(employee.getEmail()) ) {
+                    break;
+                }
+            }
+         }
         return employee;
     }
     
@@ -865,12 +906,16 @@ public static void main(String args[]) {
             @Override
             public void run() {
                 InterfazServidor dialog = new InterfazServidor(new javax.swing.JFrame(), true);
-                Employee empleado1 = new Employee(402380478, "rojassegniniroberto@gmail.com", "2016139072", "Roberto Rojas Segnini");
-                Employee empleado2 = new Employee(402380478, "sergiohidalgo1610@gmail.com", "2016183437 ", "Sergio Hidalgo Fonseca");
-                Employee empleado3 = new Employee(402380478, "dab18@hotmail.com", "2014089192", "Daniel Alvarado Bonilla");
+                //Employee empleado1 = new Employee(402380478, "rojassegniniroberto@gmail.com", "2016139072", "Roberto Rojas Segnini");
+                //Employee empleado2 = new Employee(402380478, "sergiohidalgo1610@gmail.com", "2016183437 ", "Sergio Hidalgo Fonseca");
+                //Employee empleado3 = new Employee(402380478, "dab18@hotmail.com", "2014089192", "Daniel Alvarado Bonilla");
                 
                 Server server = Server.getInstance();
                 server.readExcel();
+                
+                server.addEmployee(402380478, "rojassegniniroberto@gmail.com", "2016139072", "Roberto Rojas Segnini");
+                server.addEmployee(201360478, "sergiohidalgo1610@gmail.com", "2016183437 ", "Sergio Hidalgo Fonseca");
+                server.addEmployee(704150696, "dab18@hotmail.com", "2014089192", "Daniel Alvarado Bonilla");
                 
                 //SocketThread socket = new SocketThread(dialog, server);
                 //server.initServer(socket);
