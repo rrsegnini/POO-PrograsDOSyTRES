@@ -12,8 +12,8 @@ import java.io.*;
  * @author CASA
  */
 public class Client {
-    final String HOST = "127.0.0.1";
-    final int PUERTO=5000;
+    String HOST = "127.0.0.1";
+    int PUERTO=5000;
 
 Socket sc;
 
@@ -24,9 +24,10 @@ DataInputStream entrada;
 String buffer;
 //Cliente
 
-public void initClient(String user, String password) /*ejecuta este metodo para correr el cliente */{
+public void initClient(String user, String password, String host, String port) /*ejecuta este metodo para correr el cliente */{
     try{
-
+        HOST = host;
+        PUERTO = Integer.parseInt(port);
         sc = new Socket( HOST , PUERTO ); /*conectar a un servidor en localhost con puerto 5000*/
         entrada = new DataInputStream(sc.getInputStream());
         mensaje = new DataOutputStream(sc.getOutputStream());

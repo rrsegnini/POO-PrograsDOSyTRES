@@ -122,6 +122,8 @@ public class Interfaz extends javax.swing.JFrame {
         usuarioTxt = new javax.swing.JTextField();
         passwordTxt = new javax.swing.JTextField();
         frameLogIn = new javax.swing.JButton();
+        ipText = new javax.swing.JTextField();
+        portText = new javax.swing.JTextField();
 
         frameColores.setMinimumSize(new java.awt.Dimension(400, 300));
 
@@ -480,6 +482,10 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        ipText.setText("127.0.0.1");
+
+        portText.setText("5000");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -488,16 +494,19 @@ public class Interfaz extends javax.swing.JFrame {
                 .addContainerGap(115, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(usuarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1)
+                        .addGap(165, 165, 165))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(ipText, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(usuarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(portText, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(85, 85, 85))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(frameLogIn, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(159, 159, 159))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(165, 165, 165))))
+                        .addGap(159, 159, 159))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -506,9 +515,13 @@ public class Interfaz extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(51, 51, 51)
                 .addComponent(usuarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(passwordTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(ipText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(portText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addComponent(frameLogIn)
                 .addGap(37, 37, 37))
         );
@@ -524,7 +537,7 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
         frameColores.setVisible(true);
        setVisible(false);
-       client.initClient(usuarioTxt.getText(), passwordTxt.getText());
+       client.initClient(usuarioTxt.getText(), passwordTxt.getText(), ipText.getText(), portText.getText());
        //client.send();
        
        frameColores.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -714,6 +727,8 @@ public class Interfaz extends javax.swing.JFrame {
     private void botonDatosEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonDatosEnviarMouseClicked
         // TODO add your handling code here:
         //
+        
+        
         java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("yyyy/MM/dd");
         java.util.Date date = new java.util.Date();
         dateFormat.format(date);
@@ -726,13 +741,16 @@ public class Interfaz extends javax.swing.JFrame {
         segundosTotales = h*60*60 + m*60 + s;
         h = 0; m = 0; s = 0;
         actualizarLabelCronometro();
-        
+        ultimoTicketAtendido = listTickets.getSelectedValue();
         String datosAtendido = usuarioTxt.getText() + ";" + ultimoTicketAtendido
                 + ";" + ultimoTicketAtendido
                 + ";" + segundosTotales
                 + ";" +  datosListo.getText() + ";" + dateFormat;
         
         client.send("listo", datosAtendido);
+        botonVerdeMouseClicked(evt);
+        botonAmarilloMouseClicked(evt);
+        botonRojoMouseClicked(evt);
         JOptionPane.showMessageDialog(rootPane, "Enviado con éxito");
         java.awt.Toolkit.getDefaultToolkit().beep();
         datosTicketListo.setVisible(false);
@@ -834,6 +852,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton frameLogIn;
     private javax.swing.JDialog frameSinExito;
     private javax.swing.JFrame frameTickets;
+    private javax.swing.JTextField ipText;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -849,6 +868,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JList<String> listTickets;
     private javax.swing.JTextField passwordTxt;
+    private javax.swing.JTextField portText;
     private javax.swing.JTextField usuarioTxt;
     // End of variables declaration//GEN-END:variables
 }

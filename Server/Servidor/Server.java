@@ -106,6 +106,8 @@ public class Server {
             excelFileName = Filename;*/
 
            // FileInputStream fileInputStream = new FileInputStream(path + "/" + Filename);
+           excelFilePath = "C:/Users/CASA/Desktop/PrograTresPOO/POO-PrograsDOSyTRES";
+           excelFileName = "TICKETS.xlsx";
             FileInputStream fileInputStream = new FileInputStream("C:/Users/CASA/Desktop/PrograTresPOO/POO-PrograsDOSyTRES/TICKETS.xlsx");
             XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
             XSSFSheet worksheet = workbook.getSheetAt(0);
@@ -146,7 +148,7 @@ public class Server {
        return;
     }
 
-    public void saveExcel(Employee _employee) {
+    public void saveExcel() {
         try {
             FileInputStream fileInputStream = new FileInputStream(excelFilePath + "/" + excelFileName);
             XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
@@ -155,7 +157,7 @@ public class Server {
 
             int cont = 1;
             for(int index = 0; RedTickestList.get(index)!=null; index++){
-                Ticket _ticket = ticketsList.get(index);
+                Ticket _ticket = RedTickestList.get(index);
                 XSSFRow row = worksheet.getRow(cont);
 
                 if(_ticket.getTicketStatus() == TicketStatus.RESOLVED){
@@ -207,7 +209,7 @@ public class Server {
             }
 
             for(int index1 = 0; YellowTicketsList.get(index1)!=null; index1++){
-                Ticket _ticket = ticketsList.get(index1);
+                Ticket _ticket = YellowTicketsList.get(index1);
                 XSSFRow row = worksheet.getRow(cont);
 
                 if(_ticket.getTicketStatus() == TicketStatus.RESOLVED){
@@ -260,7 +262,7 @@ public class Server {
             }
 
             for(int index2 = 0; GreenTicketsList.get(index2)!=null; index2++){
-                Ticket _ticket = ticketsList.get(index2);
+                Ticket _ticket = GreenTicketsList.get(index2);
                 XSSFRow row = worksheet.getRow(cont);
 
                 if(_ticket.getTicketStatus() == TicketStatus.RESOLVED){
@@ -443,9 +445,10 @@ public class Server {
         String redTickets = "";
         for (int i = 0; i < this.RedTickestList.size(); i++) {
             _ticket = this.RedTickestList.get(i);
-            redTickets += _ticket.getSubject() + ";" + _ticket.getTicketID() + 
-                    ";" + _ticket.getDateReceivedString() + ";";
-            
+            if (_ticket.getTicketStatus() == TicketStatus.IN_QUEUE){
+                redTickets += _ticket.getSubject() + ";" + _ticket.getTicketID() + 
+                        ";" + _ticket.getDateReceivedString() + ";";
+            }
         }
     System.out.println(redTickets);
     return redTickets;
@@ -461,9 +464,10 @@ public class Server {
         String yellowTickets = "";
         for (int i = 0; i < this.YellowTicketsList.size(); i++) {
             _ticket = this.YellowTicketsList.get(i);
-            yellowTickets += _ticket.getSubject() + ";" + _ticket.getTicketID() + 
-                    ";" + _ticket.getDateReceivedString() + ";";
-            
+            if (_ticket.getTicketStatus() == TicketStatus.IN_QUEUE){
+                yellowTickets += _ticket.getSubject() + ";" + _ticket.getTicketID() + 
+                        ";" + _ticket.getDateReceivedString() + ";";
+            }
         }
     System.out.println(yellowTickets);
     return yellowTickets;
@@ -479,9 +483,10 @@ public class Server {
         String greenTickets = "";
         for (int i = 0; i < this.GreenTicketsList.size(); i++) {
             _ticket = this.GreenTicketsList.get(i);
-            greenTickets += _ticket.getSubject() + ";" + _ticket.getTicketID() + 
-                    ";" + _ticket.getDateReceivedString() + ";";
-            
+            if (_ticket.getTicketStatus() == TicketStatus.IN_QUEUE){
+                greenTickets += _ticket.getSubject() + ";" + _ticket.getTicketID() + 
+                        ";" + _ticket.getDateReceivedString() + ";";
+            }
         }
     System.out.println(greenTickets);
     return greenTickets;
@@ -808,7 +813,7 @@ public class Server {
         //TicketCategory categ = TicketCategory.LOW;
         for (int i = 0;i < this.ticketsList.size();i++) {
             ticket = this.ticketsList.get(i);
-            if (ticket.getSubject() == _ticketSubject){
+            if (ticket.getSubject().equals(_ticketSubject)){
                 break;
                 /*ticket.setTicketCategory(_category);
                 categ = ticket.getTicketCategory();
@@ -817,6 +822,17 @@ public class Server {
             
         }
         return ticket;
+    }
+    
+    public void closeSocket(){
+        try{
+            if (sc != null){
+                sc.close();
+            }
+        }catch(IOException e){
+            return;
+        }
+    
     }
 
     

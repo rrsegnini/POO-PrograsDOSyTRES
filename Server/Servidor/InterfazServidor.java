@@ -64,6 +64,7 @@ public class InterfazServidor extends javax.swing.JDialog {
         jScrollPane8 = new javax.swing.JScrollPane();
         infoVerdes = new javax.swing.JTextArea();
         jPanel2 = new javax.swing.JPanel();
+        desconectarServidor = new javax.swing.JButton();
 
         LogInServer.setMinimumSize(new java.awt.Dimension(400, 300));
 
@@ -284,6 +285,13 @@ public class InterfazServidor extends javax.swing.JDialog {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
+        desconectarServidor.setText("Desconectar");
+        desconectarServidor.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                desconectarServidorMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -293,6 +301,9 @@ public class InterfazServidor extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47))
             .addComponent(tabRojos)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(desconectarServidor))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -300,7 +311,9 @@ public class InterfazServidor extends javax.swing.JDialog {
                 .addComponent(tabRojos, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(desconectarServidor)
+                .addContainerGap())
         );
 
         tabRojos.getAccessibleContext().setAccessibleName("");
@@ -488,6 +501,14 @@ public class InterfazServidor extends javax.swing.JDialog {
         
     }//GEN-LAST:event_colaVerdesMouseClicked
 
+    private void desconectarServidorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_desconectarServidorMouseClicked
+        // TODO add your handling code here:
+        theServer.saveExcel();
+        theServer.closeSocket();
+        
+        setVisible(false);
+    }//GEN-LAST:event_desconectarServidorMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -519,6 +540,7 @@ public class InterfazServidor extends javax.swing.JDialog {
     private javax.swing.JList<String> colaAmarillos;
     private javax.swing.JList<String> colaRojos;
     private javax.swing.JList<String> colaVerdes;
+    private javax.swing.JButton desconectarServidor;
     private javax.swing.JTextArea infoAmarillos;
     private javax.swing.JTextArea infoRojos;
     private javax.swing.JTextArea infoTicketsPendientes;

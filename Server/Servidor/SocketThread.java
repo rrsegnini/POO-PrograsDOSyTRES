@@ -5,6 +5,7 @@ import java.net.*;
 import java.io.*;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 
 /*
@@ -119,7 +120,7 @@ public class SocketThread extends Thread{
                 else if (buffer.equals("atender")){
                     System.out.println("atender");
                     buffer = (String)entrada.readUTF(); 
-                    
+                    JOptionPane.showMessageDialog(serverGUI, "Un empleado ha comenzado a atender el ticket con el subject: " + buffer);
                     server.getTicketWString(buffer).setTicketStatus("En Atencion");
                 }
                 else if (buffer.equals("listo")){
