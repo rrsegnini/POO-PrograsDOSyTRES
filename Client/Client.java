@@ -55,6 +55,9 @@ public void send(String request, String others){
         else if (request.equals("no_listo")){
             mensaje.writeUTF(others);
         }
+        else if (request.equals("reporte")){
+            mensaje.writeUTF(others);
+        }
     }catch(Exception e ){
         System.out.println("Error: "+e.getMessage());
     }
