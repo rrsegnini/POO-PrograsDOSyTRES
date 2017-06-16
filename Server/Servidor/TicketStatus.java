@@ -10,5 +10,5 @@ package Servidor;
  * @author danielalvarado
  */
 public enum TicketStatus {
-    PENDING,PROCESSING,RESOLVED
+    PENDING,IN_QUEUE,PROCESSING,RESOLVED
 }

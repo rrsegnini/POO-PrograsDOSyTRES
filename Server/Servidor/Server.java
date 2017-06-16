@@ -96,16 +96,17 @@ public class Server {
     public void readExcel() {
         try {
             final JFileChooser fc = new JFileChooser();
-            fc.showOpenDialog(fc);
+            /*fc.showOpenDialog(fc);
 
             java.io.File file = fc.getSelectedFile();
             String path = fc.getCurrentDirectory().getAbsolutePath();
             excelFilePath = path;
             System.out.println(path);
             String Filename = fc.getName(file);
-            excelFileName = Filename;
+            excelFileName = Filename;*/
 
-            FileInputStream fileInputStream = new FileInputStream(path + "/" + Filename);
+           // FileInputStream fileInputStream = new FileInputStream(path + "/" + Filename);
+            FileInputStream fileInputStream = new FileInputStream("C:/Users/CASA/Desktop/PrograTresPOO/POO-PrograsDOSyTRES/TICKETS.xlsx");
             XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
             XSSFSheet worksheet = workbook.getSheetAt(0);
 
@@ -129,6 +130,9 @@ public class Server {
 
                     addTicket(b1, c1Val);
                 }
+                else{
+                    break;
+                }
 
             }
 
@@ -139,6 +143,7 @@ public class Server {
             //} catch (NullPointerException e){
             //      System.out.println("Yap");
         }
+       return;
     }
 
     public void saveExcel(Employee _employee) {
@@ -618,6 +623,40 @@ public class Server {
                 this.addTicketToCategoryList(ticket, categ);
             }
         }
+    }
+    //Busca el ticket con ell subject enviado por parametro
+    public void setTicketCategoryWString(String _ticketSubject, String _category) {
+        Ticket ticket;
+        //ticket.get
+        TicketCategory categ = TicketCategory.LOW;
+        for (int i = 0;i < this.ticketsList.size();i++) {
+            ticket = this.ticketsList.get(i);
+            if (ticket.getSubject() == _ticketSubject){
+                ticket.setTicketCategory(_category);
+                categ = ticket.getTicketCategory();
+                this.addTicketToCategoryList(ticket, categ);
+            }
+            
+        }
+        
+        
+    
+    }
+    //Busca el ticket con ell subject enviado por parametro
+    public Ticket getTicketWString(String _ticketSubject) {
+        Ticket ticket = new Ticket(0, "");
+        //TicketCategory categ = TicketCategory.LOW;
+        for (int i = 0;i < this.ticketsList.size();i++) {
+            ticket = this.ticketsList.get(i);
+            if (ticket.getSubject() == _ticketSubject){
+                break;
+                /*ticket.setTicketCategory(_category);
+                categ = ticket.getTicketCategory();
+                this.addTicketToCategoryList(ticket, categ);*/
+            }
+            
+        }
+        return ticket;
     }
     
     

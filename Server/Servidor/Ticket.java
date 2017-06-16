@@ -86,9 +86,9 @@ public class Ticket implements AttentionMetric {
         switch(_category){
                 case "Urgente":  tCateg = TicketCategory.URGENT;
                 break;
-                case "Media":  tCateg = TicketCategory.URGENT;
+                case "Media":  tCateg = TicketCategory.MEDIUM;
                 break;
-                case "Leve":  tCateg= TicketCategory.URGENT;
+                case "Leve":  tCateg= TicketCategory.LOW;
                 break;      
                 }
         this.category = tCateg;
@@ -132,7 +132,9 @@ public class Ticket implements AttentionMetric {
                 case "En Atencion":  tStatus = TicketStatus.PROCESSING;
                 break;
                 case "Atendido":  tStatus = TicketStatus.RESOLVED;
-                break;      
+                break; 
+                case "En cola":  tStatus = TicketStatus.IN_QUEUE;
+                break; 
                 }
         this.status = tStatus; 
     }

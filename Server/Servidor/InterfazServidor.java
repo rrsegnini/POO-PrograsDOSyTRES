@@ -269,8 +269,11 @@ public class InterfazServidor extends javax.swing.JDialog {
         
         //String ticketSeleccionado = listaTicketsPendientes.getSelectedValuesList().get(listaTicketsPendientes.getMaxSelectionIndex());
         String ticketSeleccionado = listaTicketsPendientes.getSelectedValue();
-        infoTicketsPendientes.setText(ticketSeleccionado);
-        
+        Ticket eticket = theServer.getTicketWString(ticketSeleccionado);
+        infoTicketsPendientes.setText("ID del ticket: " + eticket.getTicketID() + "\n" + 
+                "Fecha de recibido: " + eticket.getTimeReceived() + "\n" +
+                "Asunto: " + ticketSeleccionado + "\n");
+        //infoTicketsPendientes
         //Object value;
         //getListCellRendererComponent( listaTicketsPendientes, value, index, isSelected, cellHasFocus );
         //listaTicketsPendientes.getSelectedValuesList().get(0)
@@ -302,6 +305,8 @@ public class InterfazServidor extends javax.swing.JDialog {
     private void botonEnviarColaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEnviarColaMouseClicked
         // TODO add your handling code here:
         //listaTicketsPendientes.getSelectionModel().
+        Vector<Ticket> vectorTickets = theServer.getAllTickets();
+        
         java.util.List<String> listaTickets = listaTicketsPendientes.getSelectedValuesList();
         //botonEnviarCola.addActionListener(l);
         
@@ -310,6 +315,19 @@ public class InterfazServidor extends javax.swing.JDialog {
         int largo = listaTickets.size();
         if (largo>0) {
             for (int i = 0; i < largo; i++) {
+                if (botonEnviarCola.getText() == "Enviar a cola verde"){
+                    theServer.setTicketCategoryWString(listaTickets.get(i), "Leve");
+                    
+     
+                }
+                else if (botonEnviarCola.getText() == "Enviar a cola amarilla"){
+                    theServer.setTicketCategoryWString(listaTickets.get(i), "Media");
+                    
+                }
+                else if (botonEnviarCola.getText() == "Enviar a cola roja"){
+                    theServer.setTicketCategoryWString(listaTickets.get(i), "Urgente");
+                }
+               theServer.getTicketWString(listaTickets.get(i)).setTicketStatus("En cola");
                listaTicketString.addElement(listaTickets.get(i));
                 
             }
@@ -325,7 +343,7 @@ public class InterfazServidor extends javax.swing.JDialog {
         else if (botonEnviarCola.getText() == "Enviar a cola roja"){
         colaRojos.setModel(listaTicketString);
         }
-       
+        this.tabRojosMouseClicked(evt);
         
     }//GEN-LAST:event_botonEnviarColaMouseClicked
 
@@ -342,7 +360,21 @@ public class InterfazServidor extends javax.swing.JDialog {
     
         
         server.initServer(this);
-    
+        Vector<Ticket> vectorTickets = theServer.getAllTickets();
+        
+        //java.util.List<String> listaTickets = listaTicketsPendientes.getSelectedValuesList();
+        //botonEnviarCola.addActionListener(l);
+        
+        javax.swing.DefaultListModel<String> listaTicketString =  new javax.swing.DefaultListModel<String>();
+        
+        int largo = vectorTickets.size();
+        if (largo>0) {
+            for (int i = 0; i < largo; i++) {
+               listaTicketString.addElement(vectorTickets.get(i).getSubject());
+                
+            }
+        }
+        listaTicketsPendientes.setModel(listaTicketString);
         setVisible(true);
     }//GEN-LAST:event_loginServerMouseClicked
 
@@ -367,8 +399,9 @@ public class InterfazServidor extends javax.swing.JDialog {
         int largo = vectorTickets.size();
         if (largo>0) {
             for (int i = 0; i < largo; i++) {
-               listaTicketString.addElement(vectorTickets.get(i).getSubject());
-                
+               if (vectorTickets.get(i).getTicketStatus() == TicketStatus.PENDING){
+                    listaTicketString.addElement(vectorTickets.get(i).getSubject());
+               }
             }
         }
         listaTicketsPendientes.setModel(listaTicketString);
