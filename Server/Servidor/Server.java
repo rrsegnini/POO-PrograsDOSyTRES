@@ -338,8 +338,14 @@ public class Server {
 
 
 
-
-        void addTicket(int _clientID, String _subjet) {
+    /**
+     * Creates a ticket and adds it to the List of tickets in the server
+     * 
+     * @param _clientID ID of the client that creates the ticket.
+     * @param _subjet the ticket's subject.
+     * @param _ticketID The ticket's ID.
+     */
+    void addTicket(int _clientID, String _subjet) {
         Ticket newTicket = new Ticket( _clientID,  _subjet);
         this.ticketsList.add(newTicket);
         
@@ -366,6 +372,16 @@ public class Server {
         return newListTickets;
     }
     
+
+    /**
+     * Method used in updateTicket, updates the information of a ticket.
+     * 
+     * @param _ticketID Ticket ID used.
+     * @param _complain The complain string.
+     * @param _secondsSpent Time spent in seconds working on this specific ticket.
+     * @param _resolvedComment Comment made by the Employee who solved the ticket.
+     * @param _dateResolved  Date when the ticket was solved.
+     */
     public void ticketDetails(int _ticketID, String _complain, int _secondsSpent, 
             String _resolvedComment, Date _dateResolved) {
         
@@ -387,6 +403,18 @@ public class Server {
             
     }
     
+    /**
+     * This method is only used when a ticket has been solved by an employee.
+     * It updates some information on the ticket and changes the Ticket status to
+     * SOLVED.
+     * 
+     * @param _employeeiD The employee who solved the ticket.
+     * @param _ticketID The ID of the ticket solved.
+     * @param _complain The complain string.
+     * @param _secondsSpent Time spent in seconds working on this specific ticket.
+     * @param _resolvedComment Comment made by the Employee who solved the ticket.
+     * @param _dateResolved Date when the ticket was solved.
+     */
     public void updateTicket(int _employeeiD,int _ticketID, String _complain, int _secondsSpent, 
             String _resolvedComment, Date _dateResolved) {
     
@@ -424,6 +452,14 @@ public class Server {
     
     }
     
+    /**
+     * This method creates and adds an Employee to the server's list of Employees
+     * 
+     * @param _employeeID ID if the employee int.
+     * @param _email Email of the employee string.
+     * @param _password password of the employee string.
+     * @param _fullName full name of the Employee being registered.
+     */
     public void addEmployee(int _employeeID,String _email, String _password, String _fullName) {
         Employee newEmployee = new Employee(_employeeID, _email,  _password,  _fullName);
         this.employeesList.add(newEmployee);
@@ -431,6 +467,13 @@ public class Server {
     
     public Vector<Employee> getEmployeeList() {return this.employeesList;}
     
+
+    /**
+     * This method adds a Ticket to the list of tickets solved by a specific Employee
+     * 
+     * @param _employeeID ID of the employee who worked on the Ticket.
+     * @param _ticket Ticket worked on.
+     */
     public void addTicket2Employee(int _employeeID,Ticket _ticket) {
         Employee employee;
         
@@ -451,6 +494,11 @@ public class Server {
     //////////////////////////////////////////////////
     //////////////////////////////////////////////////
     
+    /**
+     * This method connects an employee to the server
+     * 
+     * @param _employeeID ID of the employee who's going to connect.
+     */
     public void connectEmployee(int _employeeID) {
         Employee employee;
         for (int i = 0; i < this.employeesList.size(); i++) {
@@ -460,7 +508,12 @@ public class Server {
             }
         }
     }
-    
+
+    /**
+     * This method disconnects an employee from the server
+     * 
+     * @param _employeeID ID of the employee who's going to disconnect.
+     */
     public void disconnectEmployee(int _employeeID) {
         Employee employee;
         for (int i = 0; i < this.employeesList.size(); i++) {
@@ -470,7 +523,17 @@ public class Server {
             }
         }
     }
-    
+
+    /**
+     * This method is used when an employee starts working on a ticket.
+     * It changes the ticket status to PROCCESSING and adds the ticket to the employees
+     * list of tickets received.
+     * 
+     * @param _ticketID the ID of the ticket that is going to be worked on.
+     * @param _employeeID the ID of the employee who's going to process the Ticket.
+     * @return returns true if the employee successfully starts working on the ticket
+     * and false if the ticket's status wasn't PENDING
+     */
     public boolean reserveTicket(int _ticketID, int _employeeID) {
         Ticket ticket;
         TicketStatus status = TicketStatus.PENDING;
@@ -491,6 +554,12 @@ public class Server {
         return false;
     }
     
+    /**
+     * Method the returns an Employee object
+     * 
+     * @param _employeeID the ID of the employee wanted
+     * @return returns the Employee object
+     */
     public Employee getEmployee(int _employeeID) {
         Employee employee = new Employee();
         
@@ -503,6 +572,12 @@ public class Server {
         return employee;
     }
     
+    /**
+     * Method used when an employee cant solve a Ticket, so the ticket changes
+     * status to PENDING again. 
+     * 
+     * @param _ticketID The ticket that's going to change it's status.
+     */
     public void releaseTicket(int _ticketID) {
         Ticket ticket;
         for (int i = 0; i < this.ticketsList.size(); i++) {
@@ -554,7 +629,15 @@ public class Server {
         
         return totalSecs/count;
     }
-    
+
+
+    /**
+     * This method returns a vector with the complete list of those tickets
+     * solved by a specific employee
+     * 
+     * @param _employeeID The id of the employee
+     * @return returns the complete list of Tickets solved by this employee
+     */
     public Vector<Ticket> getTicketsSolvedByEmployee(int _employeeID) {
         Employee employee;
         Vector<Ticket> nullVector = new Vector<Ticket>();
@@ -567,7 +650,17 @@ public class Server {
         
         return nullVector;
     }
-    
+
+    /**
+     * This method creates a String with the information of  Tickets processed by 
+     * a employee, depending on the login given.
+     * 
+     * @param _email Employee's email String
+     * @param _password Employee's password String
+     * @param _date Date wanted (used to determine the Tickets used in the report)
+     * @return returns a string with a report of the employee's work through the 
+     * date given
+     */
     public String getEmployeeReport(String _email, String _password, Date _date) {
         Employee employee;
         String msg = "";
@@ -598,7 +691,13 @@ public class Server {
     
     }
 
-
+    /**
+     * This method adds a ticket depending on the category given to it's respective list
+     * (Red,Yellow,Green)
+     * 
+     * @param _ticket The ticket so it can be added to the List of tickets
+     * @param _categ  The category in which the ticket belongs
+     */
     public void addTicketToCategoryList(Ticket _ticket, TicketCategory _categ) {
         
         if (_categ == TicketCategory.LOW) {
@@ -611,7 +710,14 @@ public class Server {
         
     
     }
-    
+    /**
+     * Method the sets the category of certain ticket
+     * 
+     * 
+     * @param _ticketID the Ticjet ID 
+     * @param _category the catgory in which the administrator wants that ticket
+     * to be in
+     */
     public void setTicketCategory(int _ticketID, String _category) {
         Ticket ticket;
         TicketCategory categ = TicketCategory.LOW;
