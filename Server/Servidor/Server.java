@@ -777,6 +777,61 @@ public class Server {
         }
         return ticket;
     }
+
+    
+     /**
+     *
+     * Method that verifies if string received is correct.
+     *
+     * @param _string Receives a string 
+     * @return Returns true if the string is right.
+     */
+    private boolean verifyString(String _string) {
+        if (_string != null && _string.trim().length() > 0)
+            // si el string ingresado no es vacio, no es nullo y ademas no 
+            // contiene numeros (por que es el nombre de un autor o un editor etc)
+            return true;
+        return false;
+        
+    }
+    
+        
+    /**
+     *
+     * Method that verifies if a email is right (has @)
+     *
+     * @param _correoE String that is the email.
+     * @return Returns true if its written correctly
+     */
+    private boolean verifyEmail(String _email) {
+        int flag = 0;
+        
+        if (!this.verifyString(_email))
+            return false;
+        
+        if (_email.length() == 0 )
+            return false;
+
+        if (_email.charAt(0) == '@')
+            return false;
+
+        for (int i = 0; i < _email.length(); i++){
+            char letter = _email.charAt(i);
+
+            if (letter == '@'){
+                if (_email.charAt(i + 1) == ' ') {
+                    return false ;
+                }
+                flag = 1;
+            }
+        }
+        if (flag != 1) {
+            return false;
+        }
+        
+        return true;
+    }
+    
     
     
 
