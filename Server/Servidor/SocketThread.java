@@ -161,6 +161,44 @@ public class SocketThread extends Thread{
                     server.updateTicket(_employeeiD, _ticketID, _complain, _secondsSpen, _resolvedComment, _dateResolved);
                     //server.getTicketWString(buffer).setTicketStatus("Atendido");
                 }
+                else if (buffer.equals("no_listo")){
+                    System.out.println("no_listo");
+                    buffer = (String)entrada.readUTF(); 
+                    String[] tokens = buffer.split("\\;");
+                    int _employeeiD=0;int _ticketID=0; String _complain=""; 
+                    int _secondsSpen=0;
+                    String _resolvedComment=""; Date _dateResolved = new java.util.Date();;
+                    int cont=0;
+                    for (String token : tokens) {
+                        //System.out.println(token);
+                        if (cont == 0){
+                         _employeeiD = server.getEmployeeByEmail(token).getID();
+                        }
+                        else if (cont == 1){
+                           _ticketID = server.getTicketWString(token).getTicketID();
+                        }
+                        else if (cont == 2){
+                           _complain = token;
+                        }
+                        else if (cont == 3){
+                           _secondsSpen = Integer.parseInt(token);
+                        }
+                        else if (cont == 4){
+                           _resolvedComment = token;
+                        }
+                        else if (cont == 5){
+                            java.text.DateFormat dateFormat = new java.text.SimpleDateFormat("yyyy/MM/dd");
+                            java.util.Date date = new java.util.Date();
+                            dateFormat.format(date);
+                            _dateResolved = date;
+                        }
+                        
+                        cont++;
+                        
+                    }
+                    server.updateUnresolvedTicket(_employeeiD, _ticketID, _complain, _secondsSpen, _resolvedComment, _dateResolved);
+                    //server.getTicketWString(buffer).setTicketStatus("Atendido");
+                }
                 //mensaje = new DataOutputStream(this.socket.getOutputStream());
 
                 //mensaje.writeUTF("Conectado");

@@ -367,6 +367,9 @@ public class InterfazServidor extends javax.swing.JDialog {
     private void botonEnviarColaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEnviarColaMouseClicked
         // TODO add your handling code here:
         //listaTicketsPendientes.getSelectionModel().
+        if (botonEnviarCola.getText() == "Enviar a cola"){
+            return;
+        }
         Vector<Ticket> vectorTickets = theServer.getAllTickets();
         
         java.util.List<String> listaTickets = listaTicketsPendientes.getSelectedValuesList();

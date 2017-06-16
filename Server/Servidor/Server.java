@@ -435,6 +435,24 @@ public class Server {
         }  
     }
     
+    public void updateUnresolvedTicket(int _employeeiD,int _ticketID, String _complain, int _secondsSpent, 
+            String _resolvedComment, Date _dateResolved) {
+    
+        this.ticketDetails(_ticketID, _complain, _secondsSpent, _resolvedComment,
+                _dateResolved);
+        
+        
+        Ticket ticket;
+        for (int i = 0; i < this.ticketsList.size(); i++) {
+            ticket = this.ticketsList.get(i);
+            if (ticket.getTicketID()== _ticketID) {
+                ticket.setTicketStatus("Pendiente");
+                ticket.setEmployeeID(_employeeiD);
+                this.addTicket2Employee(_employeeiD, ticket);
+            }
+        }  
+    }
+    
     public Vector<Ticket> getREDticketList() {
         return this.RedTickestList;
     

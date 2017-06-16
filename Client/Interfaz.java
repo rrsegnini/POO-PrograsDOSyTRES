@@ -111,7 +111,7 @@ public class Interfaz extends javax.swing.JFrame {
         frameSinExito = new javax.swing.JDialog();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        razonSinExito = new javax.swing.JTextArea();
         botonEnviarSinExito = new javax.swing.JButton();
         datosTicketListo = new javax.swing.JDialog();
         jLabel6 = new javax.swing.JLabel();
@@ -315,6 +315,11 @@ public class Interfaz extends javax.swing.JFrame {
                 botonCancelarMouseClicked(evt);
             }
         });
+        botonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout CronometroLayout = new javax.swing.GroupLayout(Cronometro.getContentPane());
         Cronometro.getContentPane().setLayout(CronometroLayout);
@@ -362,9 +367,9 @@ public class Interfaz extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel5.setText("Indique la razón por la cual abandona el ticket sin éxito:");
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane3.setViewportView(jTextArea1);
+        razonSinExito.setColumns(20);
+        razonSinExito.setRows(5);
+        jScrollPane3.setViewportView(razonSinExito);
 
         botonEnviarSinExito.setText("Enviar");
         botonEnviarSinExito.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -689,15 +694,27 @@ public class Interfaz extends javax.swing.JFrame {
             Reanudar.setEnabled(true);
         }
         //Esta variable es la enviada por el buffer
-        segundosTotales = h*60*60 + m*60 + s;
-        h = 0; m = 0; s = 0;
-        actualizarLabelCronometro();
+        //segundosTotales = h*60*60 + m*60 + s;
+        //h = 0; m = 0; s = 0;
+        //actualizarLabelCronometro();
         
        
     }//GEN-LAST:event_botonCancelarMouseClicked
 
     private void botonEnviarSinExitoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonEnviarSinExitoMouseClicked
         // TODO add your handling code here:
+        
+        
+        segundosTotales = h*60*60 + m*60 + s;
+        h = 0; m = 0; s = 0;
+        actualizarLabelCronometro();
+        ultimoTicketAtendido = listTickets.getSelectedValue();
+        String datosNoAtendido = usuarioTxt.getText() + ";" + ultimoTicketAtendido
+                + ";" + ultimoTicketAtendido
+                + ";" + segundosTotales
+                + ";" +  razonSinExito.getText() + ";" + "";
+        
+        client.send("no_listo", datosNoAtendido);
         JOptionPane.showMessageDialog(rootPane, "Enviado con éxito");
         frameSinExito.setVisible(false);
          Cronometro.setVisible(false);
@@ -791,6 +808,10 @@ public class Interfaz extends javax.swing.JFrame {
         
     }//GEN-LAST:event_PausarMouseClicked
 
+    private void botonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonCancelarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -865,10 +886,10 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JList<String> listTickets;
     private javax.swing.JTextField passwordTxt;
     private javax.swing.JTextField portText;
+    private javax.swing.JTextArea razonSinExito;
     private javax.swing.JTextField usuarioTxt;
     // End of variables declaration//GEN-END:variables
 }
