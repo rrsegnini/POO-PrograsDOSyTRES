@@ -437,6 +437,19 @@ public class Server {
         return this.RedTickestList;
     
     }
+    public String getREDticketString() {
+        
+        Ticket _ticket;
+        String redTickets = "";
+        for (int i = 0; i < this.RedTickestList.size(); i++) {
+            _ticket = this.RedTickestList.get(i);
+            redTickets += _ticket.getSubject() + ";" + _ticket.getTicketID() + 
+                    ";" + _ticket.getDateReceivedString() + ";";
+            
+        }
+    System.out.println(redTickets);
+    return redTickets;
+    }
     
     public Vector<Ticket> getYELLOWticketList() {
         return this.YellowTicketsList;
@@ -797,6 +810,10 @@ public static void main(String args[]) {
             @Override
             public void run() {
                 InterfazServidor dialog = new InterfazServidor(new javax.swing.JFrame(), true);
+                Employee empleado1 = new Employee(402380478, "rojassegniniroberto@gmail.com", "2016139072", "Roberto Rojas Segnini");
+                Employee empleado2 = new Employee(402380478, "sergiohidalgo1610@gmail.com", "2016183437 ", "Sergio Hidalgo Fonseca");
+                Employee empleado3 = new Employee(402380478, "dab18@hotmail.com", "2014089192", "Daniel Alvarado Bonilla");
+                
                 Server server = Server.getInstance();
                 server.readExcel();
                 

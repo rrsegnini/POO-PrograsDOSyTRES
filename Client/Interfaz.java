@@ -1,5 +1,6 @@
 
 
+import java.util.Vector;
 import javax.swing.JOptionPane;
 
 /*
@@ -473,6 +474,42 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonRojoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_botonRojoMouseClicked
         // TODO add your handling code here:
+        javax.swing.DefaultListModel<String> listaTicketString =  new javax.swing.DefaultListModel<String>();
+        String vectorTickets = client.requestTickets();
+        int cont = 0;
+        /*java.util.StringTokenizer tokenizer = new java.util.StringTokenizer(vectorTickets, ";");
+        while (tokenizer.hasMoreTokens()) {
+            if (cont == 0){
+             System.out.println(tokenizer.nextToken());
+             listaTicketString.addElement(tokenizer.nextToken());
+            }
+            cont++;
+            if (cont == 2){
+                cont = 0;
+            }
+
+       }*/
+        
+        String[] tokens = vectorTickets.split("\\;");
+        for (String token : tokens) {
+            //System.out.println(token);
+            if (cont == 0){
+             System.out.println(token);
+             listaTicketString.addElement(token);
+            }
+            cont++;
+            if (cont == 3){
+                cont = 0;
+            }
+        }
+        /*
+        int largo = vectorTickets.size();
+        if (largo>0) {
+            for (int i = 0; i < largo; i++) {
+               listaTicketString.addElement(vectorTickets.get(i).getSubject());
+            }
+        }*/
+        listTickets.setModel(listaTicketString);
         frameTickets.setVisible(true);
     }//GEN-LAST:event_botonRojoMouseClicked
 

@@ -18,10 +18,12 @@ import java.awt.event.ActionListener;
  */
 public class SocketThread extends Thread{
     protected Socket socket;
-    DataOutputStream mensaje;
+    //DataOutputStream mensaje;
     InterfazServidor serverGUI;
     Server server;
     ServerSocket serverSocket;
+   
+    
     public SocketThread(Socket clientSocket) {
         this.socket = clientSocket;
         
@@ -47,42 +49,72 @@ public class SocketThread extends Thread{
     public void run() {
         System.out.println("JEJE");
         DataInputStream entrada;
+        DataOutputStream salida;
         BufferedReader brinp = null;
-        DataOutputStream out = null;
+        ///DataOutputStream out = null;
+        String buffer;
         
-        //InterfazServidor.listaTicketsPendientes.
-      /*  try {
+        
+        
+        try {
+            this.socket = this.serverSocket.accept();
             //entrada = socket.getInputStream();
             entrada = new DataInputStream(this.socket.getInputStream());
             //brinp = new BufferedReader(new InputStreamReader(entrada));
-            out = new DataOutputStream(socket.getOutputStream());
+            salida = new DataOutputStream(this.socket.getOutputStream());
         } catch (IOException e) {
             System.out.println("Errorsh");
             return;
-        }*/
+        }
         try {
-                this.socket = this.serverSocket.accept();
+                
+                
+                
+                //entrada = new ObjectInputStream(this.socket.getInputStream());
+                buffer = (String)entrada.readUTF();  //Usuario
+                System.out.println(buffer);
+                
+                
+                buffer = (String)entrada.readUTF(); //Contraseña
+                System.out.println(buffer);
+                
+                
                 System.out.println("Un cliente se ha conectado.");
             } catch (IOException e) {
                 System.out.println("I/O error: " + e);
+            //}catch (java.lang.ClassNotFoundException e) {
+              //  e.printStackTrace();
+              //  return;
             }
-        String line;
+        
         while (true) {
             try {
-                mensaje = new DataOutputStream(this.socket.getOutputStream());
-
-                mensaje.writeUTF("Conectado");
+                //salida = new DataOutputStream(this.socket.getOutputStream());
+               // entrada = new DataInputStream(this.socket.getInputStream());
+                buffer = (String)entrada.readUTF(); 
+                System.out.println(buffer);
                 
-                entrada = new DataInputStream(this.socket.getInputStream());
-                line = entrada.readUTF();
+                if (buffer.equals("colaRojos")){
+                    System.out.println("Rojos");
+                    //salidaObjeto.defaultWriteObject();
+                    //salida.writeUTF(server.getREDticketList());
+                
+                            
+                }
+                //mensaje = new DataOutputStream(this.socket.getOutputStream());
+
+                //mensaje.writeUTF("Conectado");
+                
+                
+                //buffer = entrada.readUTF();
                 
                 //line = brinp.readLine();
-                System.out.println(line);
+                //System.out.println(buffer);
 
             } catch (IOException e) {
                 e.printStackTrace();
                 return;
-            }
+             } 
            
         }
     }

@@ -1,5 +1,5 @@
 import java.net.*;
-
+import java.util.Vector;
 import java.io.*;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -12,80 +12,62 @@ import java.io.*;
  * @author CASA
  */
 public class Client {
-    final String HOST = "localhost";
-
-final int PUERTO=5000;
+    final String HOST = "127.0.0.1";
+    final int PUERTO=5000;
 
 Socket sc;
 
+//DataOutputStream mensaje;
 DataOutputStream mensaje;
-
 DataInputStream entrada;
+//DataInputStream buffer;
 String buffer;
 //Cliente
 
-public void initClient() /*ejecuta este metodo para correr el cliente */
+public void initClient() /*ejecuta este metodo para correr el cliente */{
+    try{
 
-{
-
-try
-
-{
-
-sc = new Socket( HOST , PUERTO ); /*conectar a un servidor en localhost con puerto 5000*/
-entrada = new DataInputStream(sc.getInputStream());
-buffer = entrada.readUTF();
-System.out.println(buffer);
-/*
-//creamos el flujo de datos por el que se enviara un mensaje
-entrada = new DataInputStream(sc.getInputStream());
-buffer = entrada.readUTF();
-System.out.println(buffer);
-mensaje = new DataOutputStream(sc.getOutputStream());
-
-//enviamos el mensaje
-
-mensaje.writeUTF("Hola");
-
-//cerramos la conexión
-
-sc.close();*/
-
-}catch(Exception e )
-
-{
-
-System.out.println("Error: "+e.getMessage());
+        sc = new Socket( HOST , PUERTO ); /*conectar a un servidor en localhost con puerto 5000*/
+        entrada = new DataInputStream(sc.getInputStream());
+        mensaje = new DataOutputStream(sc.getOutputStream());
+        mensaje.writeUTF("rojassegniniroberto@gmail.com");
+        mensaje.writeUTF("2016139072");
+        
+        //buffer = entrada.readUTF();
+        //System.out.println(buffer);
+    }catch(Exception e ){
+        System.out.println("Error: "+e.getMessage());
+    }
 
 }
 
+public void send(){
+    try{
+        mensaje = new DataOutputStream(sc.getOutputStream());
+        mensaje.writeUTF("Hola");
+    }catch(Exception e ){
+        System.out.println("Error: "+e.getMessage());
+    }
+    }
+
+public String requestTickets() /*ejecuta este metodo para correr el cliente */{
+    String ticketsRojos = "";
+    try{
+        mensaje = new DataOutputStream(sc.getOutputStream());
+        mensaje.writeUTF("colaRojos");
+        //mensaje.flush();
+   
+        //bufferObject = new ObjectInputStream(sc.getInputStream());
+        //bufferObject.defaultReadObject();
+        ticketsRojos = entrada.readUTF();
+        //bufferObject.defaultReadObject();
+        //Object AA = bufferObject.readObject();
+       
+    }catch(Exception e ){
+        System.out.println("Error: "+e.getMessage());
+    }
+    return ticketsRojos;
+    }
 }
 
-public void send() /*ejecuta este metodo para correr el cliente */
-    {
 
-    try
-    {
-
-    //creamos el flujo de datos por el que se enviara un mensaje
-    //entrada = new DataInputStream(sc.getInputStream());
-    //buffer = entrada.readUTF();
-    ////System.out.println(buffer);
-    mensaje = new DataOutputStream(sc.getOutputStream());
-
-    mensaje.writeUTF("Hola");
-
-    //cerramos la conexión
-
-    //sc.close();
-
-    }catch(Exception e )
-
-    {
-
-    System.out.println("Error: "+e.getMessage());
-
-    }
-
-    }
-    }
